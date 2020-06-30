@@ -57,7 +57,15 @@ let enemyHealth = (max) => {
 
 let randE = () => {
     var min = 0,
-        max = 8,
+        max = 7,
+        num = Math.floor(Math.random() * (max - min) + min);
+        return num;
+    // console.log(score);
+};
+
+let randN = (max) => {
+    var min = 1,
+        max = max,
         num = Math.floor(Math.random() * (max - min) + min);
         return num;
     // console.log(score);
@@ -73,18 +81,50 @@ class Enemy {
         this.refdet = odds(5),  //between 0 and 4
         this.combat = odds(7),  //between 2 and 6
         this.tough = odds(9),  //between 2 and 8
-        this.toler = odds(9)  //between 2 and 8
+        this.toler = odds(9),  //between 2 and 8
         this.health = enemyHealth(25) // between 8 and 24
     }
 }
 
-let loadIn = new Array()
-
-
 let versus = [];
+
+let monsters = () => {
+    for (let i = 0; i < randN(2); i++) {
+     versus.push(new Enemy(enemyNames[randE()]))
+}
+}
+ monsters()
+
+const bodySweeper = () => {
+    if (versus[0].health <= 0){
+        versus.shift()
+    } else if (versus[1].health <= 0) {
+        versus.pop()
+    }
+
+} 
+
+console.log(versus)
+
+console.log(versus[0].health)
 
 let fight = () => {
     while (Ramesses.health > 0 && versus.length > 0){
+        if (turn <= 1){
+            PC.action = prompt(enemyStats())
+            if (PC.action == "cannons") {
+                cannons();
+            } else if (PC.action == "torpedoes") {
+                torpedo();
+                }
+                
+            } else if (turn >= 2) {
+                enemyattack();
+         } else if (versus.length = 2) {
 
+         }
+         bodySweeper()
     }
 }
+
+    

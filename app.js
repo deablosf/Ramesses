@@ -13,31 +13,6 @@
 
 //-------Basic Character sheet------------
 
-const Charactstat = {
-    name: '',
-    str: 0,
-    athl: 0,
-    refdet: 0,
-    combat: 0,
-    tough: 0,
-    toler: 0,
-    health: ((this.tough + this.toler) * 2),
-    actions: []
-}
-
-const Ramesses = {
-    name: "Ramesses",
-    str: 6,
-    athl: 6,
-    Refdet: 8,
-    combat: 10,
-    tough: 6,
-    toler: 6,
-    health: 24,
-    actions: [],
-    action: 'none'
-}
-
 let odds = (max) => {
     let num = Math.floor(Math.random() * (max - 2) + 2);
     if((num % 2) == 0){
@@ -48,7 +23,7 @@ let odds = (max) => {
         }    
 }
 
-let enemyHealth = (max) => {
+let eneHealth = (max) => {
     var min = 8,
         max = max,
         num = Math.floor(Math.random() * (max - min) + min);
@@ -56,7 +31,7 @@ let enemyHealth = (max) => {
     // console.log(score);
 };
 
-let randE = () => {
+const randE = () => {
     var min = 0,
         max = 7,
         num = Math.floor(Math.random() * (max - min) + min);
@@ -72,15 +47,6 @@ let randN = (max) => {
     // console.log(score);
 };
 
-const bodySweeper = () => {
-    if (versus[0].health <= 0){
-        versus.shift()
-    } else if (versus[1].health <= 0) {
-        versus.pop()
-    }
-
-} 
-
 const enemyNames = ["Wrath", "Gluttony", "Lust", "Pride", "Averous", "Envy", "Sloth"]
 
 class Enemy {
@@ -92,7 +58,7 @@ class Enemy {
         this.combat = odds(7),  //between 2 and 6
         this.tough = odds(9),  //between 2 and 8
         this.toler = odds(9),  //between 2 and 8
-        this.health = enemyHealth(25) // between 8 and 24
+        this.health = eneHealth(25) // between 8 and 24
     }
 }
 
@@ -103,46 +69,97 @@ let monsters = () => {
      versus.push(new Enemy(enemyNames[randE()]))
 }
 }
- 
 
-var images = ["img1.jpeg", "img2.jpeg", "img3.jpeg",];
+
+const Charactstat = {
+    name: '',
+    str: 0,
+    athl: 0,
+    refdet: 0,
+    combat: 0,
+    tough: 0,
+    toler: 0,
+    health: ((this.tough + this.toler) * 2),
+    actions: []
+}
+
+const Ramesses = {
+    name: "Ramesses",
+    str: 7,
+    athl: 6,
+    Refdet: 8,
+    combat: 10,
+    tough: 6,
+    toler: 6,
+    health: 24,
+    actions: [],
+    action: "Bat"
+}
+
+
+//var images = ["img1.jpeg", "img2.jpeg", "img3.jpeg",];
+let turn = 0;
 var versusLength = versus.length +1;
 var counter = 0;
 
 let turnTurner = () => {
-    counter = 0
-    if (counter > versusLength) {
-        counter = 0
+    console.log(versusLength)
+    if (turn >= versusLength) {
+        turn = 1
     }
-    document.querySelector(".slideshow").src = images[counter]
-    console.log(images[counter])
+    console.log(turn)
+    //document.querySelector(".slideshow").src = images[counter]
+    //console.log(images[counter])
 }
 
+// FIGHT LOOP AND ACTIONS
+const bodySweeper = () => {
+    if (versus[0].health <= 0){
+        versus.shift()
+    } 
+
+} 
 
 
+const clubStrike = () => {
+    versus[0].health -= (4 + randN(Ramesses.str));
+    console.log("Enemy Health: " + versus[0].health)
+    console.log(turn)
+    turn ++;
+}
 
+let eneAttack = () => {
+    Ramesses.health -= (2 + randN(versus[0].str));
+    console.log("Rams Health: " + Ramesses.health);
+    turn ++;
+}
 
 let fight = () => {
-    while (Ramesses.health > 0 && versus.length > 0){
-        if (turn = 0){
-            PC.action = prompt(enemyStats())
-            if (PC.action == "cannons") {
-                cannons();
-            } else if (PC.action == "torpedoes") {
-                torpedo();
-                }
-                
-            } else if (turn = 1) {
-                enemyattack();
-         } else if (versus.length = 2 && turn = 2) {
-             turn +=1
-
-         }
-         bodySweeper()
-    }
+    monsters()
+    // while (Ramesses.health > 0 && versus.length > 0){
+    //     console.log(versus)
+    //     if (turn = 1) {
+    //         clubStrike();
+    //         bodySweeper()
+    //     }
+        
+    //     if (turn = 2) {
+    //             eneAttack();
+    //      } 
+    //      if (turn =3) {
+    //          turn +=1;
+    //      }
+    //      turnTurner()
+         
+    // }
 }
 
-    
 
 
-monsters()
+///  - - - - - - - - - Beginning of Game- - - - - - - - - - - - -
+
+console.log(fight())
+
+if (versus.length <= 0){
+    console.log("Fights over")
+}

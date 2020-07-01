@@ -30,7 +30,7 @@ const Ramesses = {
     str: 7,
     athl: 6,
     Refdet: 8,
-    combat: 10,
+    combat: 11,
     tough: 6,
     toler: 6,
     health: 24,
@@ -74,10 +74,11 @@ let randN = (max) => {
     // console.log(score);
 };
 
-const attackR = () =>{
-    if (turn > 1) {
-    Ramesses.health -= (2 + randN(this.str));
-    turn ++;
+const attackR = (x) =>{
+    if (turn >= 1) {
+            Ramesses.health -= (2 + x);
+            console.log("You're hit " + "Ramess health: " + Ramesses.health) 
+            turn + 1; 
     }
 }
 
@@ -95,7 +96,7 @@ class Enemy {
         this.tough = odds(9),  //between 2 and 8
         this.toler = odds(9),  //between 2 and 8
         this.health = eneHealth(25), // between 8 and 24
-        this.actions = eneactions
+        this.actions = [attackR]
     }
 }
 
@@ -115,7 +116,7 @@ let versusLength = versus.length +1;
 let turnTurner = () => {
     // console.log(versusLength)
     if (turn >= versusLength) {
-        turn = 1
+        turn = 0
     }
     //document.querySelector(".slideshow").src = images[counter]
     //console.log(images[counter])
@@ -146,16 +147,16 @@ let fight = () => {
     while (Ramesses.health > 0 && versus.length > 0){
         bodySweeper()
         if (turn = 1) {
-            clubStrike();
+                clubStrike();
+                console.log("Direct Hit! Enemies health: " + versus[0].health)
+            
         }
         bodySweeper()
         if (turn = 2 && versus.length > 0) {
-            //eneAttack();
-            versus.actions
-            console.log("Ramess health: " + Ramesses.health)
+                versus[0].actions[0](randN(versus[0].str))        
          } 
-         if (turn =3 && versus.length > 1) {
-             turn +=1;
+         if (turn = 3 && versus.length > 1) {
+                versus[1].actions[0](randN(versus[1].str))  
          }
          turnTurner()
          

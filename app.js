@@ -13,6 +13,33 @@
 
 //-------Basic Character sheet------------
 
+const Charactstat = {
+    name: '',
+    str: 0,
+    athl: 0,
+    refdet: 0,
+    combat: 0,
+    tough: 0,
+    toler: 0,
+    health: ((this.tough + this.toler) * 2),
+    actions: []
+}
+
+const Ramesses = {
+    name: "Ramesses",
+    str: 7,
+    athl: 6,
+    Refdet: 8,
+    combat: 10,
+    tough: 6,
+    toler: 6,
+    health: 24,
+    actions: [],
+    action: "Bat"
+}
+
+let turn = 0;
+
 let odds = (max) => {
     let num = Math.floor(Math.random() * (max - 2) + 2);
     if((num % 2) == 0){
@@ -47,6 +74,15 @@ let randN = (max) => {
     // console.log(score);
 };
 
+const attackR = () =>{
+    if (turn > 1) {
+    Ramesses.health -= (2 + randN(this.str));
+    turn ++;
+    }
+}
+
+let eneactions = [attackR()]
+
 const enemyNames = ["Wrath", "Gluttony", "Lust", "Pride", "Averous", "Envy", "Sloth"]
 
 class Enemy {
@@ -58,108 +94,84 @@ class Enemy {
         this.combat = odds(7),  //between 2 and 6
         this.tough = odds(9),  //between 2 and 8
         this.toler = odds(9),  //between 2 and 8
-        this.health = eneHealth(25) // between 8 and 24
+        this.health = eneHealth(25), // between 8 and 24
+        this.actions = eneactions
     }
 }
 
+
 let versus = [];
 
-let monsters = () => {
-    for (let i = 0; i < randN(2); i++) {
+let monsterGeny = () => {
+    for (let i = 0; i < randN(3); i++) {
      versus.push(new Enemy(enemyNames[randE()]))
 }
 }
 
 
-const Charactstat = {
-    name: '',
-    str: 0,
-    athl: 0,
-    refdet: 0,
-    combat: 0,
-    tough: 0,
-    toler: 0,
-    health: ((this.tough + this.toler) * 2),
-    actions: []
-}
-
-const Ramesses = {
-    name: "Ramesses",
-    str: 7,
-    athl: 6,
-    Refdet: 8,
-    combat: 10,
-    tough: 6,
-    toler: 6,
-    health: 24,
-    actions: [],
-    action: "Bat"
-}
-
-
-//var images = ["img1.jpeg", "img2.jpeg", "img3.jpeg",];
-let turn = 0;
-var versusLength = versus.length +1;
-var counter = 0;
+// FIGHT LOOP AND ACTIONS
+let versusLength = versus.length +1;
 
 let turnTurner = () => {
-    console.log(versusLength)
+    // console.log(versusLength)
     if (turn >= versusLength) {
         turn = 1
     }
-    console.log(turn)
     //document.querySelector(".slideshow").src = images[counter]
     //console.log(images[counter])
 }
 
-// FIGHT LOOP AND ACTIONS
 const bodySweeper = () => {
     if (versus[0].health <= 0){
+        console.log("Taking out the trash!")
         versus.shift()
     } 
-
 } 
 
 
 const clubStrike = () => {
     versus[0].health -= (4 + randN(Ramesses.str));
-    console.log("Enemy Health: " + versus[0].health)
-    console.log(turn)
+    console.log("Turn Num: " + turn + "   Enemy Health: " + versus[0].health);
     turn ++;
 }
 
 let eneAttack = () => {
     Ramesses.health -= (2 + randN(versus[0].str));
-    console.log("Rams Health: " + Ramesses.health);
+    console.log("Turn Num: " + turn + "  Rams Health: " + Ramesses.health);
     turn ++;
 }
 
 let fight = () => {
-    monsters()
-    // while (Ramesses.health > 0 && versus.length > 0){
-    //     console.log(versus)
-    //     if (turn = 1) {
-    //         clubStrike();
-    //         bodySweeper()
-    //     }
-        
-    //     if (turn = 2) {
-    //             eneAttack();
-    //      } 
-    //      if (turn =3) {
-    //          turn +=1;
-    //      }
-    //      turnTurner()
+    // monsterGeny()
+    while (Ramesses.health > 0 && versus.length > 0){
+        bodySweeper()
+        if (turn = 1) {
+            clubStrike();
+        }
+        bodySweeper()
+        if (turn = 2 && versus.length > 0) {
+            //eneAttack();
+            versus.actions
+            console.log("Ramess health: " + Ramesses.health)
+         } 
+         if (turn =3 && versus.length > 1) {
+             turn +=1;
+         }
+         turnTurner()
          
-    // }
+    }
 }
 
 
 
 ///  - - - - - - - - - Beginning of Game- - - - - - - - - - - - -
 
+monsterGeny()
+console.log(versus)
 console.log(fight())
 
 if (versus.length <= 0){
     console.log("Fights over")
+} else if (Ramesses.health <= 0) {
+    console.log("A Could Have Been Ends")
 }

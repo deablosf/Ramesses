@@ -34,7 +34,8 @@ const Ramesses = {
     tough: 6,
     toler: 6,
     health: 24,
-    actions: []
+    actions: [],
+    action: 'none'
 }
 
 let odds = (max) => {
@@ -71,6 +72,15 @@ let randN = (max) => {
     // console.log(score);
 };
 
+const bodySweeper = () => {
+    if (versus[0].health <= 0){
+        versus.shift()
+    } else if (versus[1].health <= 0) {
+        versus.pop()
+    }
+
+} 
+
 const enemyNames = ["Wrath", "Gluttony", "Lust", "Pride", "Averous", "Envy", "Sloth"]
 
 class Enemy {
@@ -93,24 +103,28 @@ let monsters = () => {
      versus.push(new Enemy(enemyNames[randE()]))
 }
 }
- monsters()
+ 
 
-const bodySweeper = () => {
-    if (versus[0].health <= 0){
-        versus.shift()
-    } else if (versus[1].health <= 0) {
-        versus.pop()
+var images = ["img1.jpeg", "img2.jpeg", "img3.jpeg",];
+var versusLength = versus.length +1;
+var counter = 0;
+
+let turnTurner = () => {
+    counter = 0
+    if (counter > versusLength) {
+        counter = 0
     }
+    document.querySelector(".slideshow").src = images[counter]
+    console.log(images[counter])
+}
 
-} 
 
-console.log(versus)
 
-console.log(versus[0].health)
+
 
 let fight = () => {
     while (Ramesses.health > 0 && versus.length > 0){
-        if (turn <= 1){
+        if (turn = 0){
             PC.action = prompt(enemyStats())
             if (PC.action == "cannons") {
                 cannons();
@@ -118,9 +132,10 @@ let fight = () => {
                 torpedo();
                 }
                 
-            } else if (turn >= 2) {
+            } else if (turn = 1) {
                 enemyattack();
-         } else if (versus.length = 2) {
+         } else if (versus.length = 2 && turn = 2) {
+             turn +=1
 
          }
          bodySweeper()
@@ -128,3 +143,6 @@ let fight = () => {
 }
 
     
+
+
+monsters()

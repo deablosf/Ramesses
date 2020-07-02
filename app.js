@@ -121,7 +121,7 @@ function applyChange() {
 // ======================================PRE-SET ACTIONS=========================================
 const attackR = (x) => {
     if (turn >= 1) {
-        let strikechance = randN(x.combat);
+        let strikechance = x.aimBonus + randN(x.combat);
         if (strikechance >= Ramesses.athl/2){
             Ramesses.health -= (2 + randN(x.str));
             //document.getElementsByClassName("selectBox").innerText = Ramesses.health;
@@ -135,14 +135,25 @@ const attackR = (x) => {
     }
 }
 
-const aim = () => {
-
+const aim = (x) => {
+    if (turn >= 1) {
+        x.aimBonus +=1;
+        console.log("Looks like " + x.name + "is taking aim!");
+        turn + 1;
+    }
 }
 
 const clubStrike = (x) => { // Normal Player attack
-    x.health -= (4 + randN(Ramesses.str));
+    let swingAway = 1 + randN(Ramesses.combat)
+    if (swingAway >= x.athl/2){
+        x.health -= (4 + randN(Ramesses.str));
     console.log("Turn Num: " + turn + "  Direct Hit! Enemy Health: " + versus[0].health);
     turn ++;
+    } else {
+        console.log("Turn Num: " + turn + "  Missed" )
+        turn ++;
+    }
+    
 }
 
 const drawJūnhuǒ = () => {  // lowers next attacks damage 
@@ -229,7 +240,7 @@ console.log(versus)
 console.log(fight())
 
 if (versus.length <= 0){
-    console.log("Fights over")
+    console.log("Some mofos are always trying to ice-skate uphill")
 } else if (Ramesses.health <= 0) {
     console.log("A Could Have Been Ends")
 }

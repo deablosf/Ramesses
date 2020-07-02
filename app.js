@@ -48,6 +48,7 @@ const Ramesses = {
     origtoler: 7,
     health: 24,
     orighealth: 24,
+    aimBonus: 0,
     actions: [],
 }
 
@@ -112,6 +113,7 @@ function applyChange() {
         this.tough = odds(9),  //between 2 and 8
         this.toler = odds(9),  //between 2 and 8
         this.health = eneHealth(25), // between 8 and 24
+        this.aimBonus = 0,
         this.actions = [attackR, aim]
     }
 }
@@ -122,6 +124,7 @@ function applyChange() {
 const attackR = (x) => {
     if (turn >= 1) {
         let strikechance = x.aimBonus + randN(x.combat);
+        x.aimBonus = 0;
         if (strikechance >= Ramesses.athl/2){
             Ramesses.health -= (2 + randN(x.str));
             //document.getElementsByClassName("selectBox").innerText = Ramesses.health;
@@ -138,8 +141,16 @@ const attackR = (x) => {
 const aim = (x) => {
     if (turn >= 1) {
         x.aimBonus +=1;
-        console.log("Looks like " + x.name + "is taking aim!");
+        console.log("Looks like " + x.name + " is taking aim!  " + x.aimBonus);
         turn + 1;
+    }
+}
+
+const badAi = (x) =>{
+    if (turn >= 1) {
+        let picker = x.actions.length +1;
+        let i = randN(picker) -1
+        x.actions[i](x)
     }
 }
 
@@ -221,10 +232,10 @@ let fight = () => {
         }
         bodySweeper()
         if (turn = 2 && versus.length > 0) {
-                versus[0].actions[0](versus[0])        
+            badAi(versus[0])        
          } 
          if (turn = 3 && versus.length > 1) {
-                versus[1].actions[0](versus[1])
+            badAi(versus[1])
          }
          turnTurner()
          

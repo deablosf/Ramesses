@@ -11,7 +11,7 @@
 
 // Sheet: Strength, Athletics, Reflex/Detection, combat stat, Toughness, Tolerance,   
 
-//-------Basic Character sheet------------
+//-------Basic Character sheet and per-set variables------------
 
 const Charactstat = {
     name: '',
@@ -87,6 +87,8 @@ let randN = (max) => {
     // console.log(score);
 };
 
+
+// ======================================PRE-SET ACTIONS=========================================
 const attackR = (x) => {
     if (turn >= 1) {
             Ramesses.health -= (2 + x);
@@ -100,9 +102,33 @@ const aim = () => {
 
 }
 
+const clubStrike = () => { // Normal Player attack
+    versus[0].health -= (4 + randN(Ramesses.str));
+    console.log("Turn Num: " + turn + "   Enemy Health: " + versus[0].health);
+    turn ++;
+}
 
+const drawJūnhuǒ = () => {  // lowers next attacks damage 
 
-let eneactions = [attackR()]
+}
+
+const ravanaBackHand = () => { //multiple attacks 拉瓦那的反手, less chance of hitting after each strike. maybe a for loop
+
+}
+
+let eneAttack = () => {
+    Ramesses.health -= (2 + randN(versus[0].str));
+    console.log("Turn Num: " + turn + "  Rams Health: " + Ramesses.health);
+    turn ++;
+}
+
+let counter = () => {  //Round counter
+    
+}
+
+// ===================End Of pre-sets=================================
+
+let eneactions = [attackR(), aim()]
 
 const enemyNames = ["Wrath", "Gluttony", "Lust", "Pride", "Averous", "Envy", "Sloth"]
 
@@ -119,7 +145,6 @@ class Enemy {
         this.actions = [attackR]
     }
 }
-
 
 let versus = [];
 
@@ -149,29 +174,7 @@ const bodySweeper = () => {
     } 
 } 
 
-const clubStrike = () => { // Normal character attack
-    versus[0].health -= (4 + randN(Ramesses.str));
-    console.log("Turn Num: " + turn + "   Enemy Health: " + versus[0].health);
-    turn ++;
-}
 
-const drawJūnhuǒ = () => {  // lowers next attacks damage 
-
-}
-
-const ravanaBackHand = () => { //multiple attacks 拉瓦那的反手, less chance of hitting after each strike. maybe a for loop
-
-}
-
-let eneAttack = () => {
-    Ramesses.health -= (2 + randN(versus[0].str));
-    console.log("Turn Num: " + turn + "  Rams Health: " + Ramesses.health);
-    turn ++;
-}
-
-let counter = () => {  //Round counter
-    
-}
 
 let fight = () => {
     // monsterGeny()

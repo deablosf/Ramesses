@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Grooovy;
+    src: url(assets/ginchiest/Ginchiest.ttf);
+}
+
 .main{
     border: solid;
     height: 82vh;
@@ -14,7 +19,11 @@
     border: solid red;
     height: 30vh;
     width: 75vw;
+    font-family: Grooovy;
+    color: coral;
+    font-size: 25px;
     display: flex;
+
 
 }
 

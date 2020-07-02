@@ -124,13 +124,14 @@ function applyChange() {
 const attackR = (x) => {
     if (turn >= 1) {
         let strikechance = x.aimBonus + randN(x.combat);
-        x.aimBonus = 0;
         if (strikechance >= Ramesses.athl/2){
             Ramesses.health -= (2 + randN(x.str));
+            x.aimBonus = 0;
             //document.getElementsByClassName("selectBox").innerText = Ramesses.health;
             console.log("Turn Num: " + turn + "  You're hit " + "Ramess health: " + Ramesses.health) 
             turn + 1; 
         } else {
+            x.aimBonus = 0;
             console.log("Turn Num: " + turn + " Dodged!")
             turn + 1; 
         }
@@ -140,7 +141,7 @@ const attackR = (x) => {
 
 const aim = (x) => {
     if (turn >= 1) {
-        x.aimBonus +=1;
+        x.aimBonus +=2;
         console.log("Looks like " + x.name + " is taking aim!  " + x.aimBonus);
         turn + 1;
     }

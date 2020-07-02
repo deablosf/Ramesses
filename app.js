@@ -16,26 +16,39 @@
 const Charactstat = {
     name: '',
     str: 0,
+    origstr: 0,
     athl: 0,
+    origathl: 0,
     refdet: 0,
+    origrefdet: 0,
     combat: 0,
+    origcombat: 0,
     tough: 0,
+    origtough: 0,
     toler: 0,
+    origtoler: 0,
     health: ((this.tough + this.toler) * 2),
+    origHealth: 0,
     actions: []
 }
 
 const Ramesses = {
     name: "Ramesses",
     str: 7,
-    athl: 6,
-    Refdet: 8,
+    origstr: 7,
+    athl: 7,
+    origathl: 7,
+    refdet: 9,
+    origrefdet: 9,
     combat: 11,
-    tough: 6,
-    toler: 6,
+    origcombat: 11,
+    tough: 7,
+    origtough: 7,
+    toler: 7,
+    origtoler: 7,
     health: 24,
+    orighealth: 24,
     actions: [],
-    action: "Bat"
 }
 
 let turn = 0;
@@ -74,13 +87,20 @@ let randN = (max) => {
     // console.log(score);
 };
 
-const attackR = (x) =>{
+const attackR = (x) => {
     if (turn >= 1) {
             Ramesses.health -= (2 + x);
+            //document.getElementsByClassName("selectBox").innerText = Ramesses.health;
             console.log("You're hit " + "Ramess health: " + Ramesses.health) 
             turn + 1; 
     }
 }
+
+const aim = () => {
+
+}
+
+
 
 let eneactions = [attackR()]
 
@@ -129,11 +149,18 @@ const bodySweeper = () => {
     } 
 } 
 
-
-const clubStrike = () => {
+const clubStrike = () => { // Normal character attack
     versus[0].health -= (4 + randN(Ramesses.str));
     console.log("Turn Num: " + turn + "   Enemy Health: " + versus[0].health);
     turn ++;
+}
+
+const drawJūnhuǒ = () => {  // lowers next attacks damage 
+
+}
+
+const ravanaBackHand = () => { //multiple attacks 拉瓦那的反手, less chance of hitting after each strike. maybe a for loop
+
 }
 
 let eneAttack = () => {
@@ -142,14 +169,17 @@ let eneAttack = () => {
     turn ++;
 }
 
+let counter = () => {  //Round counter
+    
+}
+
 let fight = () => {
     // monsterGeny()
     while (Ramesses.health > 0 && versus.length > 0){
         bodySweeper()
         if (turn = 1) {
                 clubStrike();
-                console.log("Direct Hit! Enemies health: " + versus[0].health)
-            
+                console.log("Direct Hit! Enemies health: " + versus[0].health)          
         }
         bodySweeper()
         if (turn = 2 && versus.length > 0) {

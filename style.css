@@ -14,5 +14,24 @@
     border: solid red;
     height: 30vh;
     width: 75vw;
+    display: flex;
 
+}
+
+.health {
+    border: solid gold;
+    height: 30vh;
+    width: 25vw;
+}
+
+.actionBar {
+    border: solid blue;
+    height: 30vh;
+    width: 25vw;
+}
+
+.item {
+    border: solid green;
+    height: 30vh;
+    width: 25vw;
 }

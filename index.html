@@ -7,11 +7,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <!-- Out of combat mode -->
     <div class="main">
         <div class="screen"></div>
         <div class="buttomBar">
-            <div class="actionBar"></div>
+            <div class="actionBar">
+                <div class="selectBox">This will display your choices</div>
+            </div>
+            <div class="health">This will show health</div>
+            <div class="item">This will display your items</div>
+        </div>
+    </div>
+    <!-- In combat mode -->
+    <div class="commain" style="display: none;">
+        <div class="comscreen"></div>
+        <div class="combuttomBar">
+            <div class="comactionBar">
+                <div class="comselectBox"></div>
+            </div>
             <div class="health"></div>
             <div class="item"></div>
         </div>

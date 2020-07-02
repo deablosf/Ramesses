@@ -3,6 +3,8 @@
     src: url(assets/ginchiest/Ginchiest.ttf);
 }
 
+
+/* ================================ This is the out of Combat styles! ===============================*/
 .main{
     border: solid;
     height: 82vh;
@@ -13,6 +15,8 @@
     border: solid;
     height: 50vh;
     width: 75vw;
+    display: flex;
+    justify-content: center;
 }
 
 .buttomBar {
@@ -23,8 +27,6 @@
     color: coral;
     font-size: 25px;
     display: flex;
-
-
 }
 
 .health {
@@ -44,3 +46,44 @@
     height: 30vh;
     width: 25vw;
 }
+
+.person{
+    border: solid crimson;
+    height: 50vh;
+    width: 30vw;
+}
+
+
+
+/*==================================== The health bar code =========================*/
+
+.health-box {
+    background-color: #ccc;
+    height: 5vh;
+    width: 20vw;
+    margin: 0 auto;
+    border: solid 1px #aaa;
+  }
+  
+  .health-bar {
+    background-color: #00087f;
+    width: inherit;
+    height: 28px;
+    position: relative;
+    bottom: 56px;
+  }
+  
+  .health-bar-red {
+    width: 100%;
+    height: 100%;
+    background-color: #530404;
+  }
+  
+  .health-bar-blue {
+    width: 100%;
+    height: 100%;
+    background-color: #e98b11;
+    bottom: 28px;
+    position: relative;
+  }
+  

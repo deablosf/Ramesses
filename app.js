@@ -159,8 +159,9 @@ const clubStrike = (x) => { // Normal Player attack
     let swingAway = 1 + randN(Ramesses.combat)
     if (swingAway >= x.athl/2){
         x.health -= (4 + randN(Ramesses.str));
-    console.log("Turn Num: " + turn + "  Direct Hit! Enemy Health: " + versus[0].health);
-    turn ++;
+        console.log("Turn Num: " + turn + "  Direct Hit! Enemy Health: " + versus[0].health);
+        Ramesses.athl = Ramesses.origathl
+        turn ++;
     } else {
         console.log("Turn Num: " + turn + "  Missed" )
         turn ++;
@@ -168,18 +169,29 @@ const clubStrike = (x) => { // Normal Player attack
     
 }
 
-const drawJūnhuǒ = () => {  // lowers next attacks damage 
+const voiletTrust = () => {  // lowers next attacks damage by 6 but adds athl to the attacks damage.
+    let swingAway = 1 + randN(Ramesses.combat)
+    if (swingAway >= x.athl/2){
+        Ramesses.str += 6;
+        console.log("You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!")
+        x.health -= (4 + randN(Ramesses.str));
+        console.log("Turn Num: " + turn + "  Struck True! Enemy Health: " + versus[0].health);
+        Ramesses.athl -= 5;
+        Ramesses.str = Ramesses.origstr;
+        turn ++;
+    } else {
+        Ramesses.athl -= 5;
+        console.log("You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!")
+        console.log("Turn Num: " + turn + " Only to miss ..." )
+        turn ++;
+    }
+    
+
 
 }
 
 const ravanaBackHand = () => { //multiple attacks 拉瓦那的反手, less chance of hitting after each strike. maybe a for loop
-
-}
-
-let eneAttack = () => {
-    Ramesses.health -= (2 + randN(versus[0].str));
-    console.log("Turn Num: " + turn + "  Rams Health: " + Ramesses.health);
-    turn ++;
+    let swingAway = 1 + randN(Ramesses.combat)
 }
 
 let counter = () => {  //Round counter
@@ -190,9 +202,7 @@ let counter = () => {  //Round counter
 
 let eneactions = [attackR(), aim()]
 
-const enemyNames = ["Wrath", "Gluttony", "Lust", "Pride", "Averous", "Envy", "Sloth"]
-
-
+const enemyNames = ["Wrath", "Gluttony", "Lust", "Pride", "Avarus", "Envy", "Sloth"]
 
 let versus = [];
 
@@ -202,12 +212,10 @@ let monsterGeny = () => {
 }
 }
 
-
 // FIGHT LOOP AND ACTIONS
 let versusLength = versus.length +1;
 
 let turnTurner = () => {
-    // console.log(versusLength)
     if (turn >= versusLength) {
         turn = 0
     }
@@ -222,10 +230,9 @@ const bodySweeper = () => {
     } 
 } 
 
-
-
 let fight = () => {
-    // monsterGeny()
+    monsterGeny()
+    console.log(versus)
     while (Ramesses.health > 0 && versus.length > 0){
         bodySweeper()
         if (turn = 1) {
@@ -247,8 +254,8 @@ let fight = () => {
 
 ///  - - - - - - - - - Beginning of Game- - - - - - - - - - - - -
 
-monsterGeny()
-console.log(versus)
+//monsterGeny()
+//console.log(versus)
 console.log(fight())
 
 if (versus.length <= 0){

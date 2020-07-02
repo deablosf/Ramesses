@@ -87,7 +87,7 @@ let randN = (max) => {
     // console.log(score);
 };
 
-function applyChange(Ramesses.health) {
+function applyChange() {
     var a = Ramesses.health * (100 / Ramesses.orighealth);
     $(".health-bar-text").html(Math.round(a) + "%");
     $(".health-bar-red").animate({
@@ -102,12 +102,29 @@ function applyChange(Ramesses.health) {
     $('.total').html(Ramesses.health + "/" + Ramesses.orighealth);
   }
 
+  class Enemy {
+    constructor(name){
+        this.name = name,
+        this.str = odds(9), //between 2 and 8
+        this.athl = odds(7),  //between 2 and 6
+        this.refdet = odds(5),  //between 0 and 4
+        this.combat = odds(7),  //between 2 and 6
+        this.tough = odds(9),  //between 2 and 8
+        this.toler = odds(9),  //between 2 and 8
+        this.health = eneHealth(25), // between 8 and 24
+        this.actions = [attackR, aim]
+    }
+}
+
+
+
 // ======================================PRE-SET ACTIONS=========================================
 const attackR = (x) => {
     if (turn >= 1) {
-            Ramesses.health -= (2 + x);
+        let strikechance = randN(x.combat);
+            Ramesses.health -= (2 + randN(x.str));
             //document.getElementsByClassName("selectBox").innerText = Ramesses.health;
-            console.log("You're hit " + "Ramess health: " + Ramesses.health) 
+            console.log("Turn Num: " + turn + "  You're hit " + "Ramess health: " + Ramesses.health) 
             turn + 1; 
     }
 }
@@ -116,9 +133,9 @@ const aim = () => {
 
 }
 
-const clubStrike = () => { // Normal Player attack
-    versus[0].health -= (4 + randN(Ramesses.str));
-    console.log("Turn Num: " + turn + "   Enemy Health: " + versus[0].health);
+const clubStrike = (x) => { // Normal Player attack
+    x.health -= (4 + randN(Ramesses.str));
+    console.log("Turn Num: " + turn + "  Direct Hit! Enemy Health: " + versus[0].health);
     turn ++;
 }
 
@@ -146,19 +163,7 @@ let eneactions = [attackR(), aim()]
 
 const enemyNames = ["Wrath", "Gluttony", "Lust", "Pride", "Averous", "Envy", "Sloth"]
 
-class Enemy {
-    constructor(name){
-        this.name = name,
-        this.str = odds(9), //between 2 and 8
-        this.athl = odds(7),  //between 2 and 6
-        this.refdet = odds(5),  //between 0 and 4
-        this.combat = odds(7),  //between 2 and 6
-        this.tough = odds(9),  //between 2 and 8
-        this.toler = odds(9),  //between 2 and 8
-        this.health = eneHealth(25), // between 8 and 24
-        this.actions = [attackR]
-    }
-}
+
 
 let versus = [];
 
@@ -195,15 +200,14 @@ let fight = () => {
     while (Ramesses.health > 0 && versus.length > 0){
         bodySweeper()
         if (turn = 1) {
-                clubStrike();
-                console.log("Direct Hit! Enemies health: " + versus[0].health)          
+                clubStrike(versus[0]);          
         }
         bodySweeper()
         if (turn = 2 && versus.length > 0) {
-                versus[0].actions[0](randN(versus[0].str))        
+                versus[0].actions[0](versus[0])        
          } 
          if (turn = 3 && versus.length > 1) {
-                versus[1].actions[0](randN(versus[1].str))  
+                versus[1].actions[0](versus[1])
          }
          turnTurner()
          

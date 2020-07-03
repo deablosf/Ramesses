@@ -59,6 +59,12 @@ body{
 
 }
 
+.btn {
+    font-family: Grooovy;
+    font-size: 20px;
+    color: coral;
+}
+
 .btn:hover{
     border: solid gold;
 }

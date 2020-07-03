@@ -14,6 +14,7 @@
 
 //-------Basic Character sheet and per-set variables------------
 
+
 const Charactstat = {
     name: '',
     str: 0,
@@ -211,11 +212,12 @@ let counter = () => {  //Round counter
     
 }
 
+
 // ===================End Of pre-sets=================================
 
 let eneactions = [attackR(), aim()]
 
-Ramesses.actions = clubStrike, voiletTrust, ravanaBackHand
+Ramesses.actions = [clubStrike, voiletTrust, ravanaBackHand]
 
 const enemyNames = ["Wrath", "Gluttony", "Lust", "Pride", "Avarus", "Envy", "Sloth"]
 
@@ -265,16 +267,104 @@ let fight = () => {
     }
 }
 
+// - - - - - - - - - - - - Text for Game - - - - - - - - - - - - - - - 
+let state = {}
+
+const textElement = document.getElementById('text');
+const optionButtonsElement = document.getElementById('selectBox')
+
+let showTextNode = (textNodeIndex) => {
+    const textNode = textNodes.find(textNode => textNode.id === textNodeIndex)
+    textElement.innerText = textNode.text;
+    while (optionButtonsElement.firstChild){
+        optionButtonsElement.removeChild(optionButtonsElement.firstChild)
+    }
+
+    textNode.options.forEach(option => {
+        if (showOption(option)) {
+            const button = document.createElement('button')
+            button.innerText = option.text
+            button.classList.add('btn')
+            button.addEventListener('click', () => selectOption(option))
+            optionButtonsElement.appendChild(button)
+        }
+    })
+
+}
+
+let showOption = (option) => {
+    return option.requiredState ==null || option.requiredState(state)
+}
+
+let selectOption = (option) => {
+    const nextTextNodeId = option.nextText
+    if (nextTextNodeId <= 0) {
+        return startGame()
+    }
+    state = Object.assign(state, option.setState)
+    showTextNode(nextTextNodeId)
+}
+
+const textNodes = [
+    {
+        id: 1,
+        text: "This is the begining of a long proces but I believe you can do it!",
+        options: [ 
+            {
+                text: "continue",
+                nextText: 2
+            },
+            {
+                text: "Walk Away",
+                setState: {brownSuga: true},
+                nextText: 2
+            }
+        ]
+    },
+    {
+        id: 2,
+        text: "Smart choice, now get to work!",
+        options: [
+            {
+                text: "Get back to work and work it hard!",
+                requiredState: (currentState) => currentState.brownSuga,
+                setState: {brownSugar: false, awake: true},
+                nextText: 3
+            },
+            {
+                text: "Eat some gummi worms and get back to Work",
+                requiredState: (currentState) => currentState.brownSuga,
+                setState: {brownSugar: false, wired: true},
+                nextText: 3
+            },
+            {
+                text: "Take a NAP!",
+                nextText: 3
+            }
+        ]
+    }
+]
 
 
 ///  - - - - - - - - - Beginning of Game- - - - - - - - - - - - -
+let startGame = () => {
+    state = {}
+    showTextNode(1)
+
+}
+
+
+
+
 
 //monsterGeny()
 //console.log(versus)
-console.log(fight())
+// console.log(fight())
 
-if (versus.length <= 0){
-    console.log("Some mofos are always trying to ice-skate uphill")
-} else if (Ramesses.health <= 0) {
-    console.log("A Could Have Been Ends")
-}
+// if (versus.length <= 0){
+//     console.log("Some mofos are always trying to ice-skate uphill")
+// } else if (Ramesses.health <= 0) {
+//     console.log("A Could Have Been Ends")
+// }
+
+startGame()

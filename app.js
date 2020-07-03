@@ -159,7 +159,7 @@ const clubStrike = (x) => { // Normal Player attack
     let swingAway = 1 + randN(Ramesses.combat)
     if (swingAway >= x.athl/2){
         x.health -= (4 + randN(Ramesses.str));
-        console.log("Turn Num: " + turn + "  Direct Hit! Enemy Health: " + versus[0].health);
+        console.log("Turn Num: " + turn + "  Direct Hit! Enemy Health: " + x.health);
         Ramesses.athl = Ramesses.origathl
         turn ++;
     } else {
@@ -169,13 +169,13 @@ const clubStrike = (x) => { // Normal Player attack
     
 }
 
-const voiletTrust = () => {  // lowers next attacks damage by 6 but adds athl to the attacks damage.
+const voiletTrust = (x) => {  // lowers next attacks damage by 6 but adds athl to the attacks damage.
     let swingAway = 1 + randN(Ramesses.combat)
     if (swingAway >= x.athl/2){
         Ramesses.str += 6;
         console.log("You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!")
         x.health -= (4 + randN(Ramesses.str));
-        console.log("Turn Num: " + turn + "  Struck True! Enemy Health: " + versus[0].health);
+        console.log("Turn Num: " + turn + "  Struck True! Enemy Health: " + x.health);
         Ramesses.athl -= 5;
         Ramesses.str = Ramesses.origstr;
         turn ++;
@@ -190,8 +190,20 @@ const voiletTrust = () => {  // lowers next attacks damage by 6 but adds athl to
 
 }
 
-const ravanaBackHand = () => { //multiple attacks 拉瓦那的反手, less chance of hitting after each strike. maybe a for loop
+const ravanaBackHand = (x) => { //multiple attacks 拉瓦那的反手, less chance of hitting after each strike. maybe a for loop
     let swingAway = 1 + randN(Ramesses.combat)
+    if (swingAway > x.athl/2) {
+        for (i = swingAway; i > x.athl/2; i --) {
+            x.health -= (4 + randN(Ramesses.str));
+            console.log("Hit!")
+        }
+        turn ++;
+    
+    } else {
+        console.log("Way to swing mighty Casey")
+        turn ++;
+    
+}
 }
 
 let counter = () => {  //Round counter

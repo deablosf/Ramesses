@@ -214,6 +214,8 @@ let counter = () => {  //Round counter
 
 let eneactions = [attackR(), aim()]
 
+Ramesses.actions = clubStrike, voiletTrust, ravanaBackHand
+
 const enemyNames = ["Wrath", "Gluttony", "Lust", "Pride", "Avarus", "Envy", "Sloth"]
 
 let versus = [];

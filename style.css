@@ -116,3 +116,72 @@ body{
     position: relative;
   }
   
+
+  /* ------------------ THis is the COMBAT Screen ---------------------------*/
+
+  .commain {
+    border: solid;
+    height: 82vh;
+    width: 75vw;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 2px;
+  }
+
+  /* Screen and elements in screen */
+
+  .comscreen {
+    border: solid;
+    height: 50vh;
+    width: 75vw;
+    border-radius: 5px;
+    background-image: url(assets/BG4.jpg);
+    background-color: darkblue;
+    background-blend-mode: darken;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: grid;
+    grid-template-columns: 5vw 5vw 5vw;
+    grid-auto-columns: 5vw;
+
+  }
+
+  .ene1 {
+    border: solid gainsboro;
+    height: 50vh;
+    width: 25vw;
+}
+.ene2 {
+    border: solid gainsboro;
+    height: 50vh;
+    width: 25vw;
+}
+.ene3 {
+    border: solid gainsboro;
+    height: 50vh;
+    width: 25vw;
+}
+
+
+
+  .combuttomBar {
+    border: solid red;
+    height: 30vh;
+    width: 75vw;
+    font-family: Grooovy;
+    border-radius: 5px;
+    color: coral;
+    font-size: 20px;
+    display: flex;
+}
+
+.comactionBar {
+    border: solid blue;
+    height: 30vh;
+    width: 25vw;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+
+}
+

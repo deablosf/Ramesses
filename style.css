@@ -3,18 +3,30 @@
     src: url(assets/ginchiest/Ginchiest.ttf);
 }
 
+body{
+    padding: 0;
+    margin: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkorchid;
+}
 
 /* ================================ This is the out of Combat styles! ===============================*/
 .main{
     border: solid;
     height: 82vh;
     width: 75vw;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 2px;
 }
 
 .screen {
     border: solid;
     height: 50vh;
     width: 75vw;
+    border-radius: 5px;
     display: flex;
     justify-content: center;
 }
@@ -24,8 +36,9 @@
     height: 30vh;
     width: 75vw;
     font-family: Grooovy;
+    border-radius: 5px;
     color: coral;
-    font-size: 25px;
+    font-size: 20px;
     display: flex;
 }
 
@@ -33,18 +46,28 @@
     border: solid gold;
     height: 30vh;
     width: 25vw;
+    border-radius: 5px;
 }
 
 .actionBar {
     border: solid blue;
     height: 30vh;
     width: 25vw;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+
+}
+
+.btn:hover{
+    border: solid gold;
 }
 
 .item {
     border: solid green;
     height: 30vh;
     width: 25vw;
+    border-radius: 5px;
 }
 
 .person{

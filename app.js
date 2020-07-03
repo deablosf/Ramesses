@@ -1,15 +1,16 @@
 // OKay Time to get this started
 
 // Tuesday
-// DONE!!!!! *Get proposal and wireframe done.
-
-// *Figure out the number of backgrounds you'll need to finish.
-
-// DONE!! *Build basic character stats.
-
 // *Build Combat for multiple enemies and multiple actions (adding and removing status effects)
+ 
+//Wednesday
+//*Set up UI: NPCs placement, stat placement, health bar, damage animation, status animation, choices and selection functions and animations (ALL DAY!)
 
-// Sheet: Strength, Athletics, Reflex/Detection, combat stat, Toughness, Tolerance,   
+// Thursday
+//*Construct enemies and other NPCs: stats, images, onscreen pop-ups and interactions (ALL DAY!)
+
+//Friday
+//*DIALOG, DIALOG, DIALOG, DIALOG, and DIALOG, : Cause they have to spit hot fire! (Do I STILL NEED TO SAY IT! ALL DAY!!!!!)
 
 //-------Basic Character sheet and per-set variables------------
 

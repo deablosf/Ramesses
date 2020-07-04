@@ -248,7 +248,19 @@ const bodySweeper = () => {
 } 
 
 let fight = () => {
+    document.getElementById("ooc").style.display="none";
+    document.getElementById("combat").removeAttribute("style");
     monsterGeny()
+    if (versus.length = 1) {
+        document.getElementById("ene1").style.display="none";
+        document.getElementById("ene3").style.display="none";
+        document.getElementById("ene2").removeAttribute("style"), 
+        document.getElementById('ene2').innerHTML = versus.[0];
+    } else {
+        document.getElementById("ene2").style.display="none"; 
+        document.getElementById("ene1").removeAttribute("style");      
+        document.getElementById("ene3").removeAttribute("style");       
+    }
     console.log(versus)
     while (Ramesses.health > 0 && versus.length > 0){
         bodySweeper()

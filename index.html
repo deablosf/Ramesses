@@ -8,13 +8,13 @@
 </head>
 <body>
     <!-- Out of combat mode -->
-    <div class="main" style="display: none;">
+    <div id="ooc" class="main" style="display: none;">
         <div class="screen">
             <div id="text" class="text">THis is where the text will be</div>
             <div class="person">This is where the person your talking to will appear!</div>
         </div>
         <div class="buttomBar">
-            <div class="health">This will show health <br> <div class="health-box">
+            <div class="health">Health<br> <div class="health-box">
                 <div class="health-bar-red"></div>
                 <div class="health-bar-blue"></div>
                 <div class="health-bar"></div>
@@ -34,16 +34,17 @@
     </div>
     
     <!-- In combat mode -->
-    <div class="commain" style="display: ;">
+    <div id="combat" class="commain" style="display: ;">
         <div class="comscreen">
-            <div class="ene1"></div>
-            <div class="ene2"></div>
-            <div class="ene3"></div>
+            <div class="ene1" id="ene1"></div>
+            <div class="ene2" id="ene2"></div>
+            <div class="ene3" id="ene3"></div>
+            <div class="hud"></div>
         </div>
         <div class="combuttomBar">
             <div class="health">
                 <div class="health-box">
-                    This is the health Bar
+                    HEALTH
                     <div class="health-bar-red"></div>
                     <div class="health-bar-blue"></div>
                     <div class="health-bar"></div>

@@ -46,7 +46,12 @@ body{
     border: solid gold;
     height: 30vh;
     width: 25vw;
+    font-size: 30px;
     border-radius: 5px;
+    background-image: url(assets/doubt_griff.jpg);
+    background-color: gold;
+    background-blend-mode: darken;
+    background-size: 100% 100%;
 }
 
 .actionBar {
@@ -62,7 +67,7 @@ body{
 .btn {
     font-family: Grooovy;
     font-size: 20px;
-    color: coral;
+    color: black;
 }
 
 .btn:hover{
@@ -74,6 +79,10 @@ body{
     height: 30vh;
     width: 25vw;
     border-radius: 5px;
+    background-image: url(assets/explore_graf.jpeg);
+    background-color: gold;
+    background-blend-mode: darken;
+    background-size: 100% 100%;
 }
 
 .person{
@@ -95,7 +104,7 @@ body{
   }
   
   .health-bar {
-    background-color: #00087f;
+    background-color: #010107;
     width: inherit;
     height: 28px;
     position: relative;
@@ -105,13 +114,13 @@ body{
   .health-bar-red {
     width: 100%;
     height: 100%;
-    background-color: #530404;
+    background-color: #a10c0c;
   }
   
   .health-bar-blue {
     width: 100%;
     height: 100%;
-    background-color: #e98b11;
+    background-color: #ecd92a;
     bottom: 28px;
     position: relative;
   }
@@ -142,7 +151,9 @@ body{
     background-size: 100% 100%;
     display: grid;
     grid-template-columns: 5vw 5vw 5vw;
+    grid-template-rows: 5vh 5vh 5vh;
     grid-auto-columns: 5vw;
+    grid-auto-rows: 5vh;
 
   }
 
@@ -150,19 +161,29 @@ body{
     border: solid gainsboro;
     height: 50vh;
     width: 25vw;
+    grid-column: 3/4;
 }
 .ene2 {
     border: solid gainsboro;
     height: 50vh;
     width: 25vw;
+    grid-column: 6/7;
 }
 .ene3 {
     border: solid gainsboro;
     height: 50vh;
     width: 25vw;
+    grid-column: 9/10;
+}
+.hud {
+    border: solid gainsboro;
+    grid-row: 9/11;
+    grid-column: 2/15;
+    background-color: blue; opacity: 0.5;
 }
 
 
+/* Action Bar and elements */
 
   .combuttomBar {
     border: solid red;
@@ -170,7 +191,7 @@ body{
     width: 75vw;
     font-family: Grooovy;
     border-radius: 5px;
-    color: coral;
+    color: Black;
     font-size: 20px;
     display: flex;
 }
@@ -183,5 +204,13 @@ body{
     display: grid;
     grid-template-columns: repeat(1, auto);
 
+}
+
+.comselectBox {
+    background-image: url(assets/focus_graff.jpeg);
+    background-size: 100% 100%;
+    background-color: gold;
+    background-blend-mode: darken;
+    
 }
 

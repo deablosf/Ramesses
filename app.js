@@ -212,14 +212,29 @@ let counter = () => {  //Round counter
     
 }
 
-
-// ===================End Of pre-sets=================================
-
 let eneactions = [attackR(), aim()]
 
 Ramesses.actions = [clubStrike, voiletTrust, ravanaBackHand]
 
 const enemyNames = ["Wrath", "Gluttony", "Lust", "Pride", "Avarus", "Envy", "Sloth"]
+
+let ene1 = document.getElementById('ene1')
+let ene2 = document.getElementById('ene2')
+let ene3 = document.getElementById('ene3')
+
+ene1.addEventListener('click', function(){
+    let x = versus[0];
+    // 
+},false)
+ene2.addEventListener('click', function(){
+    let x = versus[0];
+},false)
+ene3.addEventListener('click', function(){
+    let x = versus[1];
+},false)
+
+// ===================Combat text and user enemy selection =================================
+let state = 0;
 
 let versus = [];
 
@@ -228,6 +243,119 @@ let monsterGeny = () => {
      versus.push(new Enemy(enemyNames[randE()]))
 }
 }
+
+const battleText = document.getElementById("hud");
+const optionButtonsElementB = document.getElementById('selectBox')
+
+let showText1 = (battleTextNodeIn) => {
+    const textNode = bTextNode1.find(textNode => textNode.id === battleTextNodeIn)
+    battleText.innerText = textNode.text;
+textNode.options.forEach(option => {
+        if (showOption(option)) {
+            const button = document.createElement('button')
+            button.innerText = option.text
+            button.classList.add('btn')
+            button.addEventListener('click', () => selectOption(option))
+            optionButtonsElementB.appendChild(button)
+        }
+    })
+
+}
+
+let showText2 = (battleTextNodeIn) => {
+    const textNode = bTextNode2.find(textNode => textNode.id === battleTextNodeIn)
+    battleText.innerText = textNode.text;
+    textNode.options.forEach(option => {
+        if (showOption(option)) {
+            const button = document.createElement('button')
+            button.innerText = option.text
+            button.classList.add('btn')
+            button.addEventListener('click', () => selectOption(option))
+            optionButtonsElementB.appendChild(button)
+        }
+    })
+
+}
+
+let choice = (option) => {
+    const nextTextNodeId = option.nextText
+        state = Object.assign(state, option.setState)
+    if (nextTextNodeId > 1) {
+            nextTextNodeId()
+        } else {
+        showTextNode(nextTextNodeId)
+    }
+    }
+
+    const bTextNode1 = [
+        {
+            id: 1,
+            text: 'Choose Enemy',
+            options: [ 
+                {
+                    text: 'Enemy 1',
+                setState: versus[0],
+                    nextText: 2
+                }        ]
+    },
+        {
+            id: 2,
+            text: 'Choose Attack!',
+            options: [
+                {
+                    text: 'Quick Strike',
+                    nextText: clubStrike(state)
+                },
+                {
+                    text: 'Voilet Trust',
+                    nextText: voiletTrust(state)
+                },
+                {
+                    text: 'Ravana’s Backhands',
+                    nextText: ravanaBackHand(state)
+                }
+            ]
+        }
+]
+    
+    
+    const bTextNode2 = [
+        {
+            id: 1,
+            text: 'Choose Enemy',
+            options: [ 
+                {
+                    text: 'Enemy 1',
+                setState: versus[0],
+                    nextText: 2
+                },
+                {
+                    text: 'Enemy 2',
+                setState: versus[1],
+                    nextText: 2
+                }
+            ]
+    },
+        {
+            id: 2,
+            text: 'Choose Attack!',
+            options: [
+                {
+                    text: 'Quick Strike',
+                    nextText: clubStrike(state)
+                },
+                {
+                    text: 'Voilet Trust',
+                    nextText: voiletTrust(state)
+                },
+                {
+                    text: 'Ravana’s Backhands',
+                    nextText: ravanaBackHand(state)
+                }
+            ]
+        }
+]
+    
 
 // FIGHT LOOP AND ACTIONS
 let versusLength = versus.length +1;
@@ -254,18 +382,20 @@ let fight = () => {
     if (versus.length = 1) {
         document.getElementById("ene1").style.display="none";
         document.getElementById("ene3").style.display="none";
-        document.getElementById("ene2").removeAttribute("style"), 
-        document.getElementById('ene2').innerHTML = versus.[0];
+        document.getElementById("ene2").removeAttribute("style");
     } else {
         document.getElementById("ene2").style.display="none"; 
         document.getElementById("ene1").removeAttribute("style");      
         document.getElementById("ene3").removeAttribute("style");       
     }
-    console.log(versus)
     while (Ramesses.health > 0 && versus.length > 0){
         bodySweeper()
         if (turn = 1) {
-                clubStrike(versus[0]);          
+            if (versus.length = 1) {
+                showText1()
+            } else {
+                showText2()
+            };          
         }
         bodySweeper()
         if (turn = 2 && versus.length > 0) {
@@ -280,7 +410,6 @@ let fight = () => {
 }
 
 // - - - - - - - - - - - - Text for Game - - - - - - - - - - - - - - - 
-let state = {}
 
 const textElement = document.getElementById('text');
 const optionButtonsElement = document.getElementById('selectBox')
@@ -316,7 +445,7 @@ let selectOption = (option) => {
     state = Object.assign(state, option.setState)
     showTextNode(nextTextNodeId)
 }
-
+// Template to have text pop up, not going super well
 const textNodes = [
     {
         id: 1,
@@ -341,7 +470,7 @@ const textNodes = [
                 text: "Get back to work and work it hard!",
                 requiredState: (currentState) => currentState.brownSuga,
                 setState: {brownSugar: false, awake: true},
-                nextText: 3
+                nextText: fight()
             },
             {
                 text: "Eat some gummi worms and get back to Work",
@@ -360,7 +489,11 @@ const textNodes = [
 
 ///  - - - - - - - - - Beginning of Game- - - - - - - - - - - - -
 let startGame = () => {
-    state = {}
+    state = 0;
+    document.getElementById("combat").style.display="none";
+    document.getElementById("ooc").removeAttribute("style");
+
+   // fight()
     showTextNode(1)
 
 }

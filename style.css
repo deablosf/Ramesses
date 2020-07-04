@@ -22,13 +22,33 @@ body{
     box-shadow: 0 0 10px 2px;
 }
 
+/*-------- OOC screen and objects ---------*/
 .screen {
     border: solid;
     height: 50vh;
     width: 75vw;
     border-radius: 5px;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 5vw 5vw 5vw;
+    grid-template-rows: 5vh 5vh 5vh;
+    grid-auto-columns: 5vw;
+    grid-auto-rows: 5vh;
+}
+
+.person{
+    border: solid crimson;
+    height: 50vh;
+    width: 25vw;
+    grid-column: 6/7;
+    
+}
+
+.text{
+    border: solid gainsboro;
+    grid-row: 9/11;
+    grid-column: 2/15;
+    background-color: blue; opacity: 0.8;
+    font-weight: bold;
 }
 
 .buttomBar {
@@ -59,6 +79,10 @@ body{
     height: 30vh;
     width: 25vw;
     border-radius: 5px;
+    background-image: url(assets/focus_graff.jpeg);
+    background-size: 100% 100%;
+    background-color: gold;
+    background-blend-mode: darken;
     display: grid;
     grid-template-columns: repeat(1, auto);
 
@@ -84,13 +108,6 @@ body{
     background-blend-mode: darken;
     background-size: 100% 100%;
 }
-
-.person{
-    border: solid crimson;
-    height: 50vh;
-    width: 30vw;
-}
-
 
 
 /*==================================== The health bar code =========================*/
@@ -157,19 +174,19 @@ body{
 
   }
 
-  .ene1 {
+  #ene1 {
     border: solid gainsboro;
     height: 50vh;
     width: 25vw;
     grid-column: 3/4;
 }
-.ene2 {
+#ene2 {
     border: solid gainsboro;
     height: 50vh;
     width: 25vw;
     grid-column: 6/7;
 }
-.ene3 {
+#ene3 {
     border: solid gainsboro;
     height: 50vh;
     width: 25vw;

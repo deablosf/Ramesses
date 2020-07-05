@@ -472,35 +472,29 @@ const textNodes = [
         text: "The Bronx was no peaceful farm town but it was home. Ramses and his brothers from the orphanage-dojo enjoyed their lives together until the Di Trullio crime family let greed make their choices for them. New faces roamed the streets, criminals from all over visiting and accepting the Di Trullio family’s hospitality.",
         options: [ 
             {
-                text: "continue",
-                nextText: 2
-            },
-            {
-                text: "Walk Away",
-                setState: {brownSuga: true},
+                text: "Continue",
+                setState: {Shifu: true},
                 nextText: 2
             }
         ]
     },
     {
         id: 2,
-        text: "Smart choice, now get to work!",
+        text: "These outsiders didn’t know the Bronx, didn’t care for the people and took what they wanted and all was forgiven if they paid off the Di Trullio’s and the mob paid the law. The streets are reaching a boiling point and few people feel safe anymore when a gang from upstate goes too far, taking one of Ramses’ oath brothers after he told them off.",
         options: [
             {
-                text: "Get back to work and work it hard!",
-                requiredState: (currentState) => currentState.brownSuga,
-                setState: {brownSugar: false, awake: true},
+                text: "Continue",
                 nextText: 3
-            },
+            }
+        ]
+    },
+    {
+        id: 3,
+        text: "His dojo master demands Ramses and his remaining oath brother, known as “Anchor of the Unmoored kingdom stay in the orphanage dojo; “Anyone weak enough to be taken deserves their fate” he says. Ignoring their master’s words, the two of them head to the abandoned Harriet Stowe Housing community or what the local’s called “Uncle Tom’s Projects” to face off against the Raptures Wronged gang to get their brother back tonight or die trying.",
+        options: [
             {
-                text: "Eat some gummi worms and get back to Work",
-                requiredState: (currentState) => currentState.brownSuga,
-                setState: {brownSugar: false, wired: true},
-                nextText: 3
-            },
-            {
-                text: "Take a NAP!",
-                //nextText: fight()
+                text: "Continue",
+                nextText: 4
             }
         ]
     }

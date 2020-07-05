@@ -106,7 +106,7 @@ function applyChange() {
   }
 
   class Enemy {
-    constructor(name){
+    constructor(name, image){
         this.name = name,
         this.str = odds(9), //between 2 and 8
         this.athl = odds(7),  //between 2 and 6
@@ -116,11 +116,34 @@ function applyChange() {
         this.toler = odds(9),  //between 2 and 8
         this.health = eneHealth(25), // between 8 and 24
         this.aimBonus = 0,
-        this.actions = [attackR, aim]
+        this.actions = [attackR, aim],
+        this.image = image
     }
 }
+// =========== Background, enemy iamge variables and HUD =====================
+let npcs = document.getElementsByClassName('person');
 
+let bGI = document.getElementsByClassName('screen');
 
+let hud = document.getElementsByClassName('hud');
+
+let enemyBox1 = document.getElementsByClassName('ene1');
+
+let enemyBox2 = document.getElementsByClassName('ene2');
+
+let enemyBox3 = document.getElementsByClassName('ene3');
+
+let oneEnemy = () => {
+    enemyBox1[0].style.display="none"
+    enemyBox3[0].style.display="none"
+    enemyBox2[0].removeAttribute("style");
+}
+
+let twoEnemy = () => {
+    enemyBox1[0].removeAttribute("style");
+    enemyBox3[0].removeAttribute("style");
+    enemyBox2[0].style.display="none"
+}
 
 // ======================================PRE-SET ACTIONS=========================================
 const attackR = (x) => {
@@ -171,7 +194,7 @@ const clubStrike = (x) => { // Normal Player attack
     
 }
 
-const voiletTrust = (x) => {  // lowers next attacks damage by 6 but adds athl to the attacks damage.
+const violetThrust = (x) => {  // lowers next attacks damage by 6 but adds athl to the attacks damage.
     let swingAway = 1 + randN(Ramesses.combat)
     if (swingAway >= x.athl/2){
         Ramesses.str += 6;
@@ -214,24 +237,24 @@ let counter = () => {  //Round counter
 
 let eneactions = [attackR(), aim()]
 
-Ramesses.actions = [clubStrike, voiletTrust, ravanaBackHand]
+Ramesses.actions = [clubStrike, violetThrust, ravanaBackHand]
 
 const enemyNames = ["Wrath", "Gluttony", "Lust", "Pride", "Avarus", "Envy", "Sloth"]
 
-let ene1 = document.getElementById('ene1')
-let ene2 = document.getElementById('ene2')
-let ene3 = document.getElementById('ene3')
+// let ene1 = document.getElementById('ene1')
+// let ene2 = document.getElementById('ene2')
+// let ene3 = document.getElementById('ene3')
 
-ene1.addEventListener('click', function(){
-    let x = versus[0];
-    // 
-},false)
-ene2.addEventListener('click', function(){
-    let x = versus[0];
-},false)
-ene3.addEventListener('click', function(){
-    let x = versus[1];
-},false)
+// ene1.addEventListener('click', function(){
+//     let x = versus[0];
+//     // 
+// },false)
+// ene2.addEventListener('click', function(){
+//     let x = versus[0];
+// },false)
+// ene3.addEventListener('click', function(){
+//     let x = versus[1];
+// },false)
 
 // ===================Combat text and user enemy selection =================================
 let state = 0;
@@ -240,37 +263,37 @@ let versus = [];
 
 let monsterGeny = () => {
     for (let i = 0; i < randN(3); i++) {
-     versus.push(new Enemy(enemyNames[randE()]))
+     versus.push(new Enemy(enemyNames[randE()].name, enemyNames[randE()].image))
 }
 }
 
 const battleText = document.getElementById("hud");
-const optionButtonsElementB = document.getElementById('selectBox')
+const optionButtonsElementB = document.getElementById("selectBox")
 
-let showText1 = (battleTextNodeIn) => {
-    const textNode = bTextNode1.find(textNode => textNode.id === battleTextNodeIn)
-    battleText.innerText = textNode.text;
-textNode.options.forEach(option => {
+let showText1 = (battleTextNodeIndex1) => {
+    const textNodeA = bTextNode1.find(textNodeA => textNodeA.id === battleTextNodeIndex1)
+    battleText.innerText = textNodeA.text;
+    textNodeA.options.forEach(option => {
         if (showOption(option)) {
             const button = document.createElement('button')
             button.innerText = option.text
             button.classList.add('btn')
-            button.addEventListener('click', () => selectOption(option))
+            button.addEventListener('click', () => choice(option))
             optionButtonsElementB.appendChild(button)
         }
     })
 
 }
 
-let showText2 = (battleTextNodeIn) => {
-    const textNode = bTextNode2.find(textNode => textNode.id === battleTextNodeIn)
-    battleText.innerText = textNode.text;
-    textNode.options.forEach(option => {
+let showText2 = (battleTextNodeIndex) => {
+    const textNodeB = bTextNode2.find(textNodeB => textNodeB.id === battleTextNodeIndex)
+    battleText.innerText = textNodeB.text;
+    textNodeB.options.forEach(option => {
         if (showOption(option)) {
             const button = document.createElement('button')
             button.innerText = option.text
             button.classList.add('btn')
-            button.addEventListener('click', () => selectOption(option))
+            button.addEventListener('click', () => choice(option))
             optionButtonsElementB.appendChild(button)
         }
     })
@@ -289,48 +312,49 @@ let choice = (option) => {
 
     const bTextNode1 = [
         {
-            id: 1,
-            text: 'Choose Enemy',
-            options: [ 
-                {
-                    text: 'Enemy 1',
-                setState: versus[0],
-                    nextText: 2
-                }        ]
-    },
-        {
-            id: 2,
-            text: 'Choose Attack!',
+            id: 1, 
+            text: "Choose Enemy", 
             options: [
                 {
-                    text: 'Quick Strike',
+                    text: "Enemy 1", 
+                    setState: versus[0], 
+                    nextText: 2
+                }
+            ]
+        },
+        {
+            id: 2, 
+            text: "Choose Attack!", 
+            options: [
+                {
+                    text: "Quick Strike", 
                     nextText: clubStrike(state)
-                },
+                }, 
                 {
-                    text: 'Voilet Trust',
-                    nextText: voiletTrust(state)
-                },
+                    text: "Violet Thrust", 
+                    nextText: violetThrust(state)
+                }, 
                 {
-                    text: 'Ravana’s Backhands',
+                    text: "Ravana’s Backhands", 
                     nextText: ravanaBackHand(state)
                 }
             ]
         }
-]
+    ]
     
     
     const bTextNode2 = [
         {
             id: 1,
-            text: 'Choose Enemy',
+            text: "Choose Enemy",
             options: [ 
                 {
-                    text: 'Enemy 1',
+                    text: "Enemy 1",
                 setState: versus[0],
                     nextText: 2
                 },
                 {
-                    text: 'Enemy 2',
+                    text: "Enemy 2",
                 setState: versus[1],
                     nextText: 2
                 }
@@ -338,18 +362,18 @@ let choice = (option) => {
     },
         {
             id: 2,
-            text: 'Choose Attack!',
+            text: "Choose Attack!",
             options: [
                 {
-                    text: 'Quick Strike',
+                    text: "Quick Strike",
                     nextText: clubStrike(state)
                 },
                 {
-                    text: 'Voilet Trust',
-                    nextText: voiletTrust(state)
+                    text: "Violet Thrust",
+                    nextText: violetThrust(state)
                 },
                 {
-                    text: 'Ravana’s Backhands',
+                    text: "Ravana’s Backhands",
                     nextText: ravanaBackHand(state)
                 }
             ]
@@ -380,13 +404,9 @@ let fight = () => {
     document.getElementById("combat").removeAttribute("style");
     monsterGeny()
     if (versus.length = 1) {
-        document.getElementById("ene1").style.display="none";
-        document.getElementById("ene3").style.display="none";
-        document.getElementById("ene2").removeAttribute("style");
-    } else {
-        document.getElementById("ene2").style.display="none"; 
-        document.getElementById("ene1").removeAttribute("style");      
-        document.getElementById("ene3").removeAttribute("style");       
+        oneEnemy()
+    } else if (versus.length > 1) {
+        twoEnemy()      
     }
     while (Ramesses.health > 0 && versus.length > 0){
         bodySweeper()
@@ -449,7 +469,7 @@ let selectOption = (option) => {
 const textNodes = [
     {
         id: 1,
-        text: "This is the begining of a long proces but I believe you can do it!",
+        text: "The Bronx was no peaceful farm town but it was home. Ramses and his brothers from the orphanage-dojo enjoyed their lives together until the Di Trullio crime family let greed make their choices for them. New faces roamed the streets, criminals from all over visiting and accepting the Di Trullio family’s hospitality.",
         options: [ 
             {
                 text: "continue",
@@ -470,7 +490,7 @@ const textNodes = [
                 text: "Get back to work and work it hard!",
                 requiredState: (currentState) => currentState.brownSuga,
                 setState: {brownSugar: false, awake: true},
-                nextText: fight()
+                nextText: 3
             },
             {
                 text: "Eat some gummi worms and get back to Work",
@@ -480,7 +500,7 @@ const textNodes = [
             },
             {
                 text: "Take a NAP!",
-                nextText: 3
+                //nextText: fight()
             }
         ]
     }
@@ -492,8 +512,10 @@ let startGame = () => {
     state = 0;
     document.getElementById("combat").style.display="none";
     document.getElementById("ooc").removeAttribute("style");
-
-   // fight()
+    npcs[0].style.backgroundImage = "url('assets/Shifu.jpg')";
+    bGI[0].style.backgroundImage = "url('assets/startBG11.jpg')"
+   //fight()
+   
     showTextNode(1)
 
 }

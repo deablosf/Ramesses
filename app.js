@@ -90,6 +90,14 @@ let randN = (max) => {
     // console.log(score);
 };
 
+let randN0 = (max) => {
+    var min = 0,
+        max = max,
+        num = Math.floor(Math.random() * (max - min) + min);
+        return num;
+    // console.log(score);
+};
+
 function applyChange() {
     var a = Ramesses.health * (100 / Ramesses.orighealth);
     $(".health-bar-text").html(Math.round(a) + "%");
@@ -110,7 +118,7 @@ function applyChange() {
   let enemyImage = document.getElementById('ene2')
 
   class Enemy {
-    constructor(name, image){
+    constructor(name, image, snaps){
         this.name = name,
         this.str = odds(9), //between 2 and 8
         this.athl = odds(7),  //between 2 and 6
@@ -121,9 +129,15 @@ function applyChange() {
         this.health = eneHealth(25), // between 8 and 24
         this.aimBonus = 0,
         this.actions = [attackR, aim],
-        this.image = image
+        this.image = image,
+        this.snaps = snaps
     }
 }
+
+let seeFoo = ["Are you getting paid to be a punching bag or do you just like getting hit? Not judging if that’s what you’re into. Just thought you wanted to save someone.", "Was that your best hit? I thought you were trying to hurt them, not seduce them with light tickles and love taps.", "Any fight that they walk away from is another failure in your book. Worst student I ever had.", "I thought I taught you to win a fight you need to get hit less than the other guy, unless you’re trying to wear down his fists with your face.", "s this for intimidation? Stand there and let them beat you until they are tired because it is futile?", " wouldn’t have done that but what do I know, I just taught you how to fight.", "Your body is strong and your brain is equally as weak. That means you’re stupid, BWAH HA HA HA.", "You know why they call it dead weight? If you try to lift it, you die too. Leave him. If he was weak enough to get caught, he is too weak for what’s coming."];
+
+
+
 // =========== Background, enemy iamge variables and HUD =====================
 let npcs = document.getElementsByClassName('person');
 
@@ -137,25 +151,13 @@ let enemyBox2 = document.getElementById('ene2');
 
 let enemyBox3 = document.getElementById('ene3');
 
-let oneEnemy = () => {
-    enemyBox1.style.display="none";
-    enemyBox3.style.display="none";
-    enemyBox2.removeAttribute("style");
-}
-
-let twoEnemy = () => {
-    enemyBox1.removeAttribute("style");
-    enemyBox3.removeAttribute("style");
-    enemyBox2.style.display="none";
-}
-
 // ======================================PRE-SET ACTIONS=========================================
 const attackR = (x) => {
         let strikechance = x.aimBonus + randN(x.combat);
         if (strikechance >= Ramesses.athl/2){
             Ramesses.health -= (2 + randN(x.str));
             x.aimBonus = 0;
-            gameMessage.innerText = "You're hit" + "Ramess health: " + Ramesses.health; 
+            gameMessage.innerText = "You're hit " + "Ramess health: " + Ramesses.health; 
         } else {
             x.aimBonus = 0;
             gameMessage.innerText =  " Dodged!";
@@ -178,7 +180,7 @@ const clubStrike = (x) => { // Normal Player attack
     let swingAway = 1 + randN(Ramesses.combat)
     if (swingAway >= x.athl/2){
         x.health -= (4 + randN(Ramesses.str));
-        gameMessage.innerText = "Direct Hit! Enemy Health: ";
+        gameMessage.innerText = "Direct Hit! Enemy Health: " + x.health;
         Ramesses.athl = Ramesses.origathl
     } else {
         gameMessage.innerText = "Missed"
@@ -190,16 +192,22 @@ const violentThrust = (x) => {  // lowers next attacks damage by 6 but adds athl
     let swingAway = 1 + randN(Ramesses.combat)
     if (swingAway >= x.athl/2){
         Ramesses.str += 6;
-        gameMessage.innerText = "You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!"
-        x.health -= (4 + randN(Ramesses.str));
+        gameMessage.innerText = "You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!";
+        setTimeout(() => {
+            x.health -= (4 + randN(Ramesses.str));
+        }, 1000);
         gameMessage.innerText = "Struck True! Enemy Health: " + x.health;
+        setTimeout(() => {  
         Ramesses.athl -= 5;
         Ramesses.str = Ramesses.origstr;
+        }, 1000);
+        
     } else {
-        Ramesses.athl -= 5;
-        //console.log("You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!")
-        //console.log("Turn Num: " + turn + " Only to miss ..." )
-        turn ++;
+        setTimeout(() => {
+            Ramesses.athl -= 5;
+        gameMessage.innerText = "You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!";
+        }, 1000);
+        gameMessage.innerText = " Only to miss ...";
     }
     
 
@@ -210,8 +218,9 @@ const ravanaBackHand = (x) => { //multiple attacks 拉瓦那的反手, less chan
     let swingAway = 1 + randN(Ramesses.combat)
     if (swingAway > x.athl/2) {
         for (i = swingAway; i > x.athl/2; i --) {
-            x.health -= (4 + randN(Ramesses.str));
-            gameMessage.innerText = "Hit!"
+            gameMessage.innerText = "Hit!" + i;
+            x.health -= (1 + randN(Ramesses.str));
+            
         }
     
     } else {
@@ -225,31 +234,38 @@ Ramesses.actions = [clubStrike, violentThrust, ravanaBackHand]
 const enemyNames = [
     {
         name: "Wrath", 
-        image: "url('assets/Enemy1.jpg')"
+        image: "url('assets/Enemy1.jpg')",
+        snaps: ["You broke in, so you brought this on yourself. Remember that in the ER, boy.", "What the? Get out! Get out of here, now! I’ll kill you!", "I saw what you did to those others, putting down a mad dog like you is the cherry on my day.", "I’d rip them apart if I could reach them, leaving me behind? Me? ARGH, why?!"]
     }, 
     {
         name: "Gluttony", 
-        image: "url('assets/enemy2.png')"
+        image: "url('assets/enemy2.png')",
+        snaps: ["I could have gone too but I needed just one more…why don’t they get it?", "I can let you go, you know...hey is that brown sugar? Give it to me and you won’t have to get hurt.", "I just had some brown sugar. No, wait! Do you have some brown sugar? Give me yours!", "Empty those pockets, boy, put it all in the bag and I might just let you leave here in one piece."]
     }, 
     {
         name: "Lust", 
-        image: "url('assets/enemy3.jpg')"
+        image: "url('assets/enemy3.jpg')",
+        snaps: ["Look at you, more crafted than born. How’d you get to look so...mmm...good?", "It’s not fair, why leave me behind? Just take a look at me and tell me you don’t want this with you.", "I shouldn’t be here, I should be far away with a face between my legs.", "I don’t want to fight, but I do like it when it gets rough."]
     }, 
     {
         name: "Pride", 
-        image: "url('assets/enemy4.jpg')"
+        image: "url('assets/enemy4.jpg')",
+        snaps: ["Cute, you got a little stick. This here? This is a real weapon.", "Had a bit of luck getting here huh? Luck ran out when you met me, boy.", "I didn’t get left behind like the rest of these sad sacks, I stayed behind because they needed guidance and strength. They need me. They. Need. Me.", "Take a swing, boy, think of it as giving you a chance."]
     }, 
     {
         name: "Avarus", 
-        image: "url('assets/enemy5.jpg')"
+        image: "url('assets/enemy5.jpg')",
+        snaps: ["I’m glad they left me behind, how could I leave such cool stuff anyway?", "I knew the moment I saw you, you got what I need but you won’t give it willingly will you? Guess I have to take it.", "I could let you go, we got what we needed but a bonus couldn’t hurt and I want more.", "Stay back, this here is mine, there’s just not enough to share, don’t you get it?!"]
     }, 
     {
         name: "Envy", 
-        image: "url('assets/enemy6.jpg')"
+        image: "url('assets/enemy6.jpg')",
+        snaps: ["That’s a real nice bat, too good for someone like you. Give it here, I said give it!", "I can’t believe she got to go instead of me, she was a whore and always in everyone else’s trash. Not one of them deserved to go more than me, not one.", "Why fight us for him? I never had a friend like that. If I take you out though, he won’t have a friend like that either.", "Look at those abs, it’s not fair, I should have abs like that. At least I won’t have your hospital bills."]
     }, 
     {
         name: "Sloth", 
-        image: "url('assets/enemy7.jpg')"
+        image: "url('assets/enemy7.jpg')",
+        snaps: ["Wait, do we even have to do this? Can’t you just, you know, leave?", "Just tap me hard enough to bruise so it looks like I really put up a fight.", "I could have gone too, I really could have, I heard the call but I figured they would come and get me.", "If I stop you here, it ends but that’s a lot of work…"]
     }
 ]
 
@@ -263,7 +279,7 @@ let monsterGeny = () => {
     let y = 1
     for (let i = 0; i < y; i++) {
         let x = randE()
-        versus.push(new Enemy(enemyNames[x].name, enemyNames[x].image))
+        versus.push(new Enemy(enemyNames[x].name, enemyNames[x].image, enemyNames[x].snaps))
     }
     return versus;
 }
@@ -288,11 +304,9 @@ let fight = () => {
     document.getElementById("ene2").removeAttribute("style");
     monsterGeny()
     enemyImage.style.backgroundImage = versus[0].image;
-    
+    gameMessage.innerText = versus[0].snaps[randN0(4)];
          
     }
-
-// everything here will be placed into our attacks
 
 const attack = (x) => {
     let attackButton = document.getElementsByClassName('attack-btn')
@@ -306,7 +320,9 @@ const attack = (x) => {
     }
 
     attackButton.disabled= true;
-    gameMessage.innerText = "oppnent is about to strike!"
+    setTimeout(() => {
+        gameMessage.innerText = "opponent is about to strike!"
+    }, 2500);
     setTimeout(() => {
         badAi(versus[0])
         if (isGameOver(Ramesses.health)) {
@@ -314,21 +330,21 @@ const attack = (x) => {
         return
         }
         attackButton.disabled = false;
-    }, 1000);
+    }, 4000);
     
 }
 
 const endFight = (message) => {
     document.getElementById('hud').innerText = message;
     setTimeout(() => {
-        document.getElementById('hud').innerText = "always trying to ice-skate uphill"
-    }, 1000);
+        document.getElementById('hud').innerText = "Seefoo always say: " + seeFoo[randN0(7)]
+    }, 800);
     setTimeout(() => {
         document.getElementById("ooc").removeAttribute("style")
         document.getElementById("combat").style.display="none";
         showTextNode(nextTextNodeId +=1)
         
-    }, 3000);
+    }, 7000);
     document.getElementsByClassName('attack-btn').hidden = true;
     document.getElementById("continue-button").hidden = false;
 }
@@ -416,9 +432,10 @@ const textNodes = [
     },
     {
         id: 3,
-        text: "His dojo master demands Ramses and his remaining oath brother, known as “Anchor of the Unmoored kingdom“ stay in the orphanage dojo; “Anyone weak enough to be taken deserves their fate” he says. Ignoring their master’s words, the two of them head to the abandoned Harriet Stowe Housing community or what the local’s called “Uncle Tom’s Projects” to face off against the Raptures Wronged gang to get their brother back tonight or die trying.",
+        text: "His dojo master demands Ramses and his remaining oath brother, known as “Anchor of the Unmoored kingdom“ stay in the orphanage dojo; “Anyone weak enough to be taken deserves their fate” he says.",
         sideEffect: () => {
             npcs[0].style.backgroundImage = "url('assets/Shifu.jpg')"
+            npcs[0].style.opacity = "0.6";
         },
         options: [
             {
@@ -426,8 +443,78 @@ const textNodes = [
                 nextText: 4
             }
         ]
+    },
+    {
+        id: 4,
+        text: "Ignoring their master’s words, the two of them head to the abandoned Harriet Stowe Housing community or what the local’s called “Tom’s Projects” to face off against the Raptures Wronged gang to get their brother back tonight or die trying. Ramesses ~I told you that you didn’t have to come, see foo’s gonna come down on me for this.~",
+        sideEffect: () => {
+            npcs[0].style.backgroundImage = "none"
+            bGI[0].style.backgroundImage = "url('assets/mainbuilding.png')";
+        },
+        options: [
+            {
+                text: "Continue",
+                nextText: 5
+            }
+        ]
+    },
+    {
+        id: 5,
+        text: "Oath Bother ~You knew I wasn’t going to listen to your punk ass.~ The two oath brothers stand at the heavy metal magnetically locked door of the project building. As they prepare to enter the building, the sound of vehicles pulling up draws their attention. Members of the Raptures Wronged slowly stepped out of the cars and off motorcycles. As the two prepare to face them, a buzzing comes from the door.",
+        sideEffect: () => {
+            
+            fight()
+        },
+        options: [
+            {
+                text: "Continue",
+                nextText: 6
+            }
+        ]
+    },
+    {
+        id: 6,
+        text: "Oath Brother ~Go, get Eclipsing Moon. I’ll keep your back free and clear.~ The Raptures Wronged ~Get away from th-~. You watch as Unmoored Anchor leaps onto the massed numbers and with steel nerves, you open the building security door and walk away from the sounds of fists and screams. You cannot let doubt slow you down now. Trusting in the oath you three swore at your ex-girl, Brenda's house, you enter the lair of the Raptures Wronged.",
+        options: [
+            {
+                text: "Continue",
+                nextText: 7
+            }
+        ]
+    },
+    {
+        id: 7,
+        text: "",
+        options: [
+            {
+                text: "Continue",
+                nextText: 8
+            }
+        ]
+    },
+    {
+        id: 8,
+        text: "",
+        options:[
+            {
+                text: "continue",
+                nextText: 9
+            }
+        ]
+    },
+    {
+        id: 9,
+        text: "",
+        options: [
+            {
+                text: "Continue",
+                nextText: 10
+            }
+        ]
     }
 ]
+
+
 
 let music = document.getElementById("flash");
 
@@ -448,9 +535,6 @@ let startGame = () => {
     //};
     bGI[0].style.backgroundImage = "url('assets/startBG11.jpg')"
     showTextNode(1)
-    
-    
-    fight()
     
 }
 

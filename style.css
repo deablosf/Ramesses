@@ -28,6 +28,8 @@ body{
     height: 50vh;
     width: 75vw;
     border-radius: 5px;
+    background-blend-mode: darken;
+    background-size: 100% 100%;
     display: grid;
     grid-template-columns: 5vw 5vw 5vw;
     grid-template-rows: 5vh 5vh 5vh;
@@ -197,10 +199,11 @@ body{
 }
 .hud {
     border: solid gainsboro;
+    font-weight: bold;
     color: ghostwhite;
     grid-row: 9/11;
     grid-column: 2/15;
-    background-color: blue; opacity: 0.5;
+    background-color: blue; opacity: 0.9;
 }
 
 

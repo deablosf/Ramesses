@@ -165,7 +165,7 @@ const attackR = (x) => {
             gameMessage.innerText = "You're hit " + "Ramess health: " + Ramesses.health; 
         } else {
             x.aimBonus = 0;
-            gameMessage.innerText =  " Dodged!";
+            gameMessage.innerText =  " Dodged, Now's your chance!";
         }
             
     }
@@ -337,8 +337,9 @@ const endFight = (message) => {
     document.getElementById('hud').innerText = message;
     setTimeout(() => {
         document.getElementById('hud').innerText = "Seefoo always say: " + seeFoo[randN0(7)]
-    }, 800);
+    }, 900);
     setTimeout(() => {
+        grandMaster()
         document.getElementById("ooc").removeAttribute("style")
         document.getElementById("combat").style.display="none";
         showTextNode(nextTextNodeId +=1)
@@ -511,9 +512,11 @@ const textNodes = [
 let music = document.getElementById("flash");
 let battleMusic = document.getElementById("lines")
 let grandMaster = () => {
+    battleMusic.pause()
     music.play()
 }
 let fightclub = () => {
+    music.pause()
     battleMusic.play()
 }
 

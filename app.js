@@ -465,6 +465,10 @@ let showTextNode = (textNodeIndex) => {
         }
     })
 
+    if (textNode.sideEffect) {
+        textNode.sideEffect();
+    }
+
 }
 
 let showOption = (option) => {
@@ -505,6 +509,9 @@ const textNodes = [
     {
         id: 3,
         text: "His dojo master demands Ramses and his remaining oath brother, known as “Anchor of the Unmoored kingdom stay in the orphanage dojo; “Anyone weak enough to be taken deserves their fate” he says. Ignoring their master’s words, the two of them head to the abandoned Harriet Stowe Housing community or what the local’s called “Uncle Tom’s Projects” to face off against the Raptures Wronged gang to get their brother back tonight or die trying.",
+        sideEffect: () => {
+            npcs[0].style.backgroundImage = "url('assets/Shifu.jpg')"
+        },
         options: [
             {
                 text: "Continue",
@@ -514,13 +521,21 @@ const textNodes = [
     }
 ]
 
+let musac = document.getElementById('flash');
 
+
+let play = () => {
+    musac.play()
+}
 ///  - - - - - - - - - Beginning of Game- - - - - - - - - - - - -
 let startGame = () => {
-    state = {shifu: false};
+    // state = {shifu: false};
+    play()
     document.getElementById("combat").style.display="none";
     document.getElementById("ooc").removeAttribute("style");
-    if (state.shifu == true) {npcs[0].style.backgroundImage = "url('assets/Shifu.jpg')"};
+    //if (state.shifu == true) {
+      //  npcs[0].style.backgroundImage = "url('assets/Shifu.jpg')"
+    //};
     bGI[0].style.backgroundImage = "url('assets/startBG11.jpg')"
     showTextNode(1)
     

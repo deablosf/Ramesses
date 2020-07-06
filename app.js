@@ -99,7 +99,7 @@ let randN0 = (max) => {
 };
 
 // Health Bar, Must fix but does not stop game
-function applyChange() {
+let applyChange = () => {
     var a = Ramesses.health * (100 / Ramesses.orighealth);
     $(".health-bar-text").html(Math.round(a) + "%");
     $(".health-bar-red").animate({

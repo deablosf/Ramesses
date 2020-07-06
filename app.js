@@ -152,13 +152,10 @@ const attackR = (x) => {
         if (strikechance >= Ramesses.athl/2){
             Ramesses.health -= (2 + randN(x.str));
             x.aimBonus = 0;
-            //document.getElementsByClassName("selectBox").innerText = Ramesses.health;
-        console.log("Turn Num: " + turn + "  You're hit " + "Ramess health: " + Ramesses.health) 
-            turn += 1; 
+            gameMessage.innerText = "You're hit" + "Ramess health: " + Ramesses.health; 
         } else {
             x.aimBonus = 0;
-            console.log("Turn Num: " + turn + " Dodged!")
-            turn += 1; 
+            gameMessage.innerText =  " Dodged!";
         }
             
     }
@@ -167,7 +164,7 @@ const attackR = (x) => {
 const aim = (x) => {
     if (turn >= 1) {
         x.aimBonus +=2;
-        //console.log("Looks like " + x.name + " is taking aim!  " + x.aimBonus);
+        gameMessage.innerText = "Looks like " + x.name + " is taking aim!  " + x.aimBonus;
         turn += 1;
     }
 }
@@ -280,120 +277,7 @@ let monsterGeny = () => {
     return versus;
 }
 
-const battleText = document.getElementById("hud");
-const optionButtonsElementB = document.getElementById("selectBox")
 
-let showText1 = (battleTextNodeIndex1) => {
-    const textNodeA = bTextNode1.find(elementOfbTextNode1 => 
-        elementOfbTextNode1.id === battleTextNodeIndex1)
-    battleText.innerText = textNodeA.text;
-    textNodeA.options.forEach(option => {
-        if (showOption(option)) {
-            const button = document.createElement('button')
-            button.innerText = option.text
-            button.classList.add('btn')
-            button.addEventListener('click', () => choice(option))
-            optionButtonsElementB.appendChild(button)
-        }
-    })
-
-}
-
-let showText2 = (battleTextNodeIndex) => {
-    const textNodeB = bTextNode2.find(textNodeB => textNodeB.id === battleTextNodeIndex)
-    battleText.innerText = textNodeB.text;
-    textNodeB.options.forEach(option => {
-        if (showOption(option)) {
-            const button = document.createElement('button')
-            button.innerText = option.text
-            button.classList.add('btn')
-            button.addEventListener('click', () => choice(option))
-            optionButtonsElementB.appendChild(button)
-        }
-    })
-
-}
-
-let choice = (option) => {
-    const nextTextNodeId = option.nextText
-        state = Object.assign(state, option.setState)
-    if (nextTextNodeId > 1) {
-            nextTextNodeId()
-        } else {
-        showTextNode(nextTextNodeId)
-    }
-    }
-
-    const bTextNode1 = [
-        {
-            id: 1, 
-            text: "Choose Enemy", 
-            options: [
-                {
-                    text: "Enemy 1", 
-                    setState: versus[0], 
-                    nextText: 2
-                }
-            ]
-        },
-        {
-            id: 2, 
-            text: "Choose Attack!", 
-            options: [
-                {
-                    text: "Quick Strike", 
-                    nextText: clubStrike
-                }, 
-                {
-                    text: "Violet Thrust", 
-                    nextText: violetThrust
-                }, 
-                {
-                    text: "Ravana’s Backhands", 
-                    nextText: ravanaBackHand
-                }
-            ]
-        }
-    ]
-    
-    
-    const bTextNode2 = [
-        {
-            id: 1,
-            text: "Choose Enemy",
-            options: [ 
-                {
-                    text: "Enemy 1",
-                setState: versus[0],
-                    nextText: 2
-                },
-                {
-                    text: "Enemy 2",
-                setState: versus[1],
-                    nextText: 2
-                }
-            ]
-    },
-        {
-            id: 2,
-            text: "Choose Attack!",
-            options: [
-                {
-                    text: "Quick Strike",
-                    nextText: clubStrike
-                },
-                {
-                    text: "Violet Thrust",
-                    nextText: violetThrust
-                },
-                {
-                    text: "Ravana’s Backhands",
-                    nextText: ravanaBackHand
-                }
-            ]
-        }
-]
-    
 
 // FIGHT LOOP AND ACTIONS
 let versusLength = versus.length +1;
@@ -413,34 +297,56 @@ const bodySweeper = () => {
 
 let turn = 1;
 
-let fight = () => {
-    // document.getElementById("ooc").style.display="none";
-    // document.getElementById("combat").removeAttribute("style");
-    monsterGeny()
-    // if (versus.length == 1) {
-    //     oneEnemy(1)
-    // } else if (versus.length > 1) {
-    //     twoEnemy(1)      
-    // }
-    document.getElementById("ooc").style.display="none";
-    document.getElementById("combat").removeAttribute("style");
-    while (Ramesses.health > 0 && versus.length > 0){
-        console.log("in the fight loop");
-        bodySweeper()
-        if (turn = 1) {
-            console.log(turn)
-        }
-        bodySweeper()
-        if (turn == 2 && versus.length > 0) {
-            badAi(versus[0])        
-         } 
-         if (turn == 3 && versus.length > 1) {
-            badAi(versus[1])
-         }
-         turnTurner()
+// let fight = () => {
+//     // document.getElementById("ooc").style.display="none";
+//     // document.getElementById("combat").removeAttribute("style");
+//     monsterGeny()
+//     // if (versus.length == 1) {
+//     //     oneEnemy(1)
+//     // } else if (versus.length > 1) {
+//     //     twoEnemy(1)      
+//     // }
+//     document.getElementById("ooc").style.display="none";
+//     document.getElementById("combat").removeAttribute("style");
+//     while (Ramesses.health > 0 && versus.length > 0){
+//         console.log("in the fight loop");
+//         bodySweeper()
+//         if (turn = 1) {
+//             console.log(turn)
+//         }
+//         bodySweeper()
+//         if (turn == 2 && versus.length > 0) {
+//             badAi(versus[0])        
+//          } 
+//          if (turn == 3 && versus.length > 1) {
+//             badAi(versus[1])
+//          }
+//          turnTurner()
          
-    }
+//     }
+// }
+
+// everything here will be placed into our attacks
+const attack = () => {
+    let attackButton = document.getElementsByClassName('attack-btn')
+    let gameMessage = document.getElementById('hud'); 
+    let playerAttack = 23;
+
+    attackButton.disabled= true;
+    gameMessage.innerText = "oppnent is about to strike!"
+    setTimeout(() => {
+        badAi(versus[0])
+        attackButton.disabled = false;
+    }, 1000);
+    
 }
+
+const printToScreen = () => {
+    document.getElementById('hud').innerText = player.health;
+
+    document.getElementById('hud').innerText = oppenent.health;
+}
+
 
 
 // - - - - - - - - - - - - Text for Game - - - - - - - - - - - - - - - 

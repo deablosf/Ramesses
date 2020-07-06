@@ -12,8 +12,9 @@
 //Friday
 //*DIALOG, DIALOG, DIALOG, DIALOG, and DIALOG, : Cause they have to spit hot fire! (Do I STILL NEED TO SAY IT! ALL DAY!!!!!)
 
-//-------Basic Character sheet and per-set variables------------
-
+// ================================
+// ==== Basic Character sheet and per-set variables
+// ================================
 
 const Charactstat = {
     name: '',
@@ -53,8 +54,7 @@ const Ramesses = {
     aimBonus: 0,
     actions: [],
 }
-
-// let turn = 1;
+let state = [];
 
 let odds = (max) => {
     let num = Math.floor(Math.random() * (max - 2) + 2);
@@ -98,6 +98,7 @@ let randN0 = (max) => {
     // console.log(score);
 };
 
+// Health Bar, Must fix but does not stop game
 function applyChange() {
     var a = Ramesses.health * (100 / Ramesses.orighealth);
     $(".health-bar-text").html(Math.round(a) + "%");
@@ -134,24 +135,28 @@ function applyChange() {
     }
 }
 
-let seeFoo = ["Are you getting paid to be a punching bag or do you just like getting hit? Not judging if that’s what you’re into. Just thought you wanted to save someone.", "Was that your best hit? I thought you were trying to hurt them, not seduce them with light tickles and love taps.", "Any fight that they walk away from is another failure in your book. Worst student I ever had.", "I thought I taught you to win a fight you need to get hit less than the other guy, unless you’re trying to wear down his fists with your face.", "s this for intimidation? Stand there and let them beat you until they are tired because it is futile?", " wouldn’t have done that but what do I know, I just taught you how to fight.", "Your body is strong and your brain is equally as weak. That means you’re stupid, BWAH HA HA HA.", "You know why they call it dead weight? If you try to lift it, you die too. Leave him. If he was weak enough to get caught, he is too weak for what’s coming."];
+    let seeFoo = ["Are you getting paid to be a punching bag or do you just like getting hit? Not judging if that’s what you’re into. Just thought you wanted to save someone.", "Was that your best hit? I thought you were trying to hurt them, not seduce them with light tickles and love taps.", "Any fight that they walk away from is another failure in your book. Worst student I ever had.", "I thought I taught you to win a fight you need to get hit less than the other guy, unless you’re trying to wear down his fists with your face.", "s this for intimidation? Stand there and let them beat you until they are tired because it is futile?", " wouldn’t have done that but what do I know, I just taught you how to fight.", "Your body is strong and your brain is equally as weak. That means you’re stupid, BWAH HA HA HA.", "You know why they call it dead weight? If you try to lift it, you die too. Leave him. If he was weak enough to get caught, he is too weak for what’s coming."];
 
 
 
-// =========== Background, enemy iamge variables and HUD =====================
+// ==================================
+// Background, enemy iamge variables and HUD 
+// ==================================
+
+// NPC the Player is interacting with at that Moment
 let npcs = document.getElementsByClassName('person');
-
+// Current background image
 let bGI = document.getElementsByClassName('screen');
-
-let hud = document.getElementsByClassName('hud');
-
+// Multiple enemies boxs to target, failed
 let enemyBox1 = document.getElementById('ene1');
 
 let enemyBox2 = document.getElementById('ene2');
 
 let enemyBox3 = document.getElementById('ene3');
 
-// ======================================PRE-SET ACTIONS=========================================
+// ==========================================
+// ========PRE-SET Attack for player and Npcs=====
+// ==========================================
 const attackR = (x) => {
         let strikechance = x.aimBonus + randN(x.combat);
         if (strikechance >= Ramesses.athl/2){
@@ -228,9 +233,8 @@ const ravanaBackHand = (x) => { //multiple attacks 拉瓦那的反手, less chan
 }
 }
 
-
 Ramesses.actions = [clubStrike, violentThrust, ravanaBackHand]
-
+// ENEMY NAMES, IMAGES, and INTRO WORDS
 const enemyNames = [
     {
         name: "Wrath", 
@@ -270,11 +274,12 @@ const enemyNames = [
 ]
 
 
-// ===================Combat text and user enemy selection =================================
-let state = [];
-
+// ============================
+// Combat text and user enemy selection
+// ============================
+// The array that will hold the genarated enemy
 let versus = [];
-
+// enemy genarator
 let monsterGeny = () => {
     let y = 1
     for (let i = 0; i < y; i++) {
@@ -284,21 +289,15 @@ let monsterGeny = () => {
     return versus;
 }
 
-// FIGHT LOOP AND ACTIONS
-let versusLength = versus.length +1;
-
-const bodySweeper = () => {
-    if (versus[0].health <= 0){
-        console.log("Taking out the trash!")
-        versus.shift()
-    } 
-} 
-
+// ===========================
+// ========== FIGHT LOOP AND ACTIONS
+// ===========================
 const isGameOver = (health) => {
     return health <= 0;
 }
 
 let fight = () => {
+    fightclub()
     document.getElementById("ooc").style.display="none";
     document.getElementById("combat").removeAttribute("style");
     document.getElementById("ene2").removeAttribute("style");
@@ -349,7 +348,7 @@ const endFight = (message) => {
     document.getElementById("continue-button").hidden = false;
 }
 
-
+// going to be the game over screen
 const restart = () => {
     let attackButton = document.getElementsByClassName('attack-btn');
     Ramesses.health = Ramesses.orighealth;
@@ -359,19 +358,13 @@ const restart = () => {
     document.getElementById("continue-button").hidden = true;
 }
 
-const printToScreen = () => {
-    document.getElementById('hud').innerText = player.health;
-
-    document.getElementById('hud').innerText = oppenent.health;
-}
-
-
-
-// - - - - - - - - - - - - Text for Game - - - - - - - - - - - - - - - 
+// ======================== 
+// ============== Text for Game
+// ========================
 
 const textElement = document.getElementById('text');
 const optionButtonsElement = document.getElementById('selectBox')
-
+// labels the objects by ID
 let showTextNode = (textNodeIndex) => {
     const textNode = textNodes.find(textNode => textNode.id === textNodeIndex)
     textElement.innerText = textNode.text;
@@ -394,11 +387,11 @@ let showTextNode = (textNodeIndex) => {
     }
 
 }
-
+// state checker
 let showOption = (option) => {
     return option.requiredState ==null || option.requiredState(state)
 }
-
+// the first game restarter
 let selectOption = (option) => {
     const nextTextNodeId = option.nextText
     if (nextTextNodeId <= 0) {
@@ -407,7 +400,7 @@ let selectOption = (option) => {
     state = Object.assign(state, option.setState)
     showTextNode(nextTextNodeId)
 }
-// Template to have text pop up, not going super well
+// THE TEXT AND EVERYTHING THAT IS!
 const textNodes = [
     {
         id: 1,
@@ -462,7 +455,7 @@ const textNodes = [
         id: 5,
         text: "Oath Bother ~You knew I wasn’t going to listen to your punk ass.~ The two oath brothers stand at the heavy metal magnetically locked door of the project building. As they prepare to enter the building, the sound of vehicles pulling up draws their attention. Members of the Raptures Wronged slowly stepped out of the cars and off motorcycles. As the two prepare to face them, a buzzing comes from the door.",
         sideEffect: () => {
-            
+
             fight()
         },
         options: [
@@ -515,24 +508,23 @@ const textNodes = [
 ]
 
 
-
 let music = document.getElementById("flash");
-
+let battleMusic = document.getElementById("lines")
 let grandMaster = () => {
     music.play()
 }
+let fightclub = () => {
+    battleMusic.play()
+}
 
-///  - - - - - - - - - Beginning of Game- - - - - - - - - - - - -
+/// ==========================
+/// ================Beginning of Game 
+/// ==========================
 let startGame = () => {
     // state = {shifu: false};
     grandMaster()
     document.getElementById("combat").style.display="none";
     document.getElementById("ooc").removeAttribute("style");
-    
-
-    //if (state.shifu == true) {
-      //  npcs[0].style.backgroundImage = "url('assets/Shifu.jpg')"
-    //};
     bGI[0].style.backgroundImage = "url('assets/startBG11.jpg')"
     showTextNode(1)
     

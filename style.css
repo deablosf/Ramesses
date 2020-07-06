@@ -186,6 +186,7 @@ body{
     border: solid gainsboro;
     height: 50vh;
     width: 25vw;
+    background-size: 100% 100%;
     grid-column: 6/7;
 }
 #ene3 {
@@ -196,6 +197,7 @@ body{
 }
 .hud {
     border: solid gainsboro;
+    color: ghostwhite;
     grid-row: 9/11;
     grid-column: 2/15;
     background-color: blue; opacity: 0.5;
@@ -220,16 +222,13 @@ body{
     height: 30vh;
     width: 25vw;
     border-radius: 5px;
-    display: grid;
-    grid-template-columns: repeat(1, auto);
-
-}
-
-.comselectBox {
     background-image: url(assets/focus_graff.jpeg);
-    background-size: 100% 100%;
     background-color: gold;
     background-blend-mode: darken;
-    
+    background-size: 100% 100%;
+    /* display: grid;
+    grid-template-columns: repeat(1, auto); */
+
 }
+
 

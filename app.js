@@ -105,6 +105,10 @@ function applyChange() {
     $('.total').html(Ramesses.health + "/" + Ramesses.orighealth);
   }
 
+  let gameMessage = document.getElementById('hud');
+
+  let enemyImage = document.getElementById('ene2')
+
   class Enemy {
     constructor(name, image){
         this.name = name,
@@ -147,7 +151,6 @@ let twoEnemy = () => {
 
 // ======================================PRE-SET ACTIONS=========================================
 const attackR = (x) => {
-    if (turn >= 1) {
         let strikechance = x.aimBonus + randN(x.combat);
         if (strikechance >= Ramesses.athl/2){
             Ramesses.health -= (2 + randN(x.str));
@@ -159,48 +162,39 @@ const attackR = (x) => {
         }
             
     }
-}
 
 const aim = (x) => {
-    if (turn >= 1) {
         x.aimBonus +=2;
         gameMessage.innerText = "Looks like " + x.name + " is taking aim!  " + x.aimBonus;
-        turn += 1;
     }
-}
 
 const badAi = (x) =>{
-    if (turn >= 1) {
         let picker = x.actions.length +1;
         let i = randN(picker) -1
         x.actions[i](x)
-    }
 }
 
 const clubStrike = (x) => { // Normal Player attack
     let swingAway = 1 + randN(Ramesses.combat)
     if (swingAway >= x.athl/2){
         x.health -= (4 + randN(Ramesses.str));
-        console.log("Turn Num: " + turn + "  Direct Hit! Enemy Health: " + x.health);
+        gameMessage.innerText = "Direct Hit! Enemy Health: ";
         Ramesses.athl = Ramesses.origathl
-        turn ++;
     } else {
-        console.log("Turn Num: " + turn + "  Missed" )
-        turn ++;
+        gameMessage.innerText = "Missed"
     }
     
 }
 
-const violetThrust = (x) => {  // lowers next attacks damage by 6 but adds athl to the attacks damage.
+const violentThrust = (x) => {  // lowers next attacks damage by 6 but adds athl to the attacks damage.
     let swingAway = 1 + randN(Ramesses.combat)
     if (swingAway >= x.athl/2){
         Ramesses.str += 6;
-        //console.log("You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!")
+        gameMessage.innerText = "You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!"
         x.health -= (4 + randN(Ramesses.str));
-        //console.log("Turn Num: " + turn + "  Struck True! Enemy Health: " + x.health);
+        gameMessage.innerText = "Struck True! Enemy Health: " + x.health;
         Ramesses.athl -= 5;
         Ramesses.str = Ramesses.origstr;
-        turn ++;
     } else {
         Ramesses.athl -= 5;
         //console.log("You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!")
@@ -217,48 +211,45 @@ const ravanaBackHand = (x) => { //multiple attacks 拉瓦那的反手, less chan
     if (swingAway > x.athl/2) {
         for (i = swingAway; i > x.athl/2; i --) {
             x.health -= (4 + randN(Ramesses.str));
-            //console.log("Hit!")
+            gameMessage.innerText = "Hit!"
         }
-        turn ++;
     
     } else {
-        //console.log("Way to swing mighty Casey")
-        turn ++;
-    
+        gameMessage.innerText = "Way to swing mighty Casey"  
 }
 }
 
 
-Ramesses.actions = [clubStrike, violetThrust, ravanaBackHand]
+Ramesses.actions = [clubStrike, violentThrust, ravanaBackHand]
 
 const enemyNames = [
     {
         name: "Wrath", 
-        image: "assets/Enemy1.jpg"
+        image: "url('assets/Enemy1.jpg')"
     }, 
     {
         name: "Gluttony", 
-        image: "assets/enemy2.jpg"
+        image: "url('assets/enemy2.png')"
     }, 
     {
         name: "Lust", 
-        image: "assets/enemy3.jpg"
+        image: "url('assets/enemy3.jpg')"
     }, 
     {
         name: "Pride", 
-        image: "assets/enemy4.jpg"
+        image: "url('assets/enemy4.jpg')"
     }, 
     {
         name: "Avarus", 
-        image: "assets/enemy5.jpg"
+        image: "url('assets/enemy5.jpg')"
     }, 
     {
         name: "Envy", 
-        image: "assets/enemy6.jpg"
+        image: "url('assets/enemy6.jpg')"
     }, 
     {
         name: "Sloth", 
-        image: "assets/enemy7.jpg"
+        image: "url('assets/enemy7.jpg')"
     }
 ]
 
@@ -269,7 +260,7 @@ let state = [];
 let versus = [];
 
 let monsterGeny = () => {
-    let y = randN(3)
+    let y = 1
     for (let i = 0; i < y; i++) {
         let x = randE()
         versus.push(new Enemy(enemyNames[x].name, enemyNames[x].image))
@@ -277,16 +268,8 @@ let monsterGeny = () => {
     return versus;
 }
 
-
-
 // FIGHT LOOP AND ACTIONS
 let versusLength = versus.length +1;
-
-let turnTurner = () => {
-    if (turn >= versusLength) {
-        turn = 1
-    }
-}
 
 const bodySweeper = () => {
     if (versus[0].health <= 0){
@@ -295,50 +278,69 @@ const bodySweeper = () => {
     } 
 } 
 
-let turn = 1;
+const isGameOver = (health) => {
+    return health <= 0;
+}
 
-// let fight = () => {
-//     // document.getElementById("ooc").style.display="none";
-//     // document.getElementById("combat").removeAttribute("style");
-//     monsterGeny()
-//     // if (versus.length == 1) {
-//     //     oneEnemy(1)
-//     // } else if (versus.length > 1) {
-//     //     twoEnemy(1)      
-//     // }
-//     document.getElementById("ooc").style.display="none";
-//     document.getElementById("combat").removeAttribute("style");
-//     while (Ramesses.health > 0 && versus.length > 0){
-//         console.log("in the fight loop");
-//         bodySweeper()
-//         if (turn = 1) {
-//             console.log(turn)
-//         }
-//         bodySweeper()
-//         if (turn == 2 && versus.length > 0) {
-//             badAi(versus[0])        
-//          } 
-//          if (turn == 3 && versus.length > 1) {
-//             badAi(versus[1])
-//          }
-//          turnTurner()
+let fight = () => {
+    document.getElementById("ooc").style.display="none";
+    document.getElementById("combat").removeAttribute("style");
+    document.getElementById("ene2").removeAttribute("style");
+    monsterGeny()
+    enemyImage.style.backgroundImage = versus[0].image;
+    
          
-//     }
-// }
+    }
 
 // everything here will be placed into our attacks
-const attack = () => {
+
+const attack = (x) => {
     let attackButton = document.getElementsByClassName('attack-btn')
-    let gameMessage = document.getElementById('hud'); 
-    let playerAttack = 23;
+    let continueButton = document.getElementById("continue-button"); 
+    
+    x(versus[0])
+    
+    if (isGameOver(versus[0].health)){
+        endFight("Ramesses Wins")
+        return
+    }
 
     attackButton.disabled= true;
     gameMessage.innerText = "oppnent is about to strike!"
     setTimeout(() => {
         badAi(versus[0])
+        if (isGameOver(Ramesses.health)) {
+            endgame("game Over")
+        return
+        }
         attackButton.disabled = false;
     }, 1000);
     
+}
+
+const endFight = (message) => {
+    document.getElementById('hud').innerText = message;
+    setTimeout(() => {
+        document.getElementById('hud').innerText = "always trying to ice-skate uphill"
+    }, 1000);
+    setTimeout(() => {
+        document.getElementById("ooc").removeAttribute("style")
+        document.getElementById("combat").style.display="none";
+        showTextNode(nextTextNodeId +=1)
+        
+    }, 3000);
+    document.getElementsByClassName('attack-btn').hidden = true;
+    document.getElementById("continue-button").hidden = false;
+}
+
+
+const restart = () => {
+    let attackButton = document.getElementsByClassName('attack-btn');
+    Ramesses.health = Ramesses.orighealth;
+    document.getElementById('hud').innerText = "";
+    attackButton.disabled = false;
+    attackButton.hidden = false;
+    document.getElementById("continue-button").hidden = true;
 }
 
 const printToScreen = () => {
@@ -427,18 +429,20 @@ const textNodes = [
     }
 ]
 
-let musac = document.getElementById('flash');
+let music = document.getElementById("flash");
 
-
-let play = () => {
-    musac.play()
+let grandMaster = () => {
+    music.play()
 }
+
 ///  - - - - - - - - - Beginning of Game- - - - - - - - - - - - -
 let startGame = () => {
     // state = {shifu: false};
-    play()
+    grandMaster()
     document.getElementById("combat").style.display="none";
     document.getElementById("ooc").removeAttribute("style");
+    
+
     //if (state.shifu == true) {
       //  npcs[0].style.backgroundImage = "url('assets/Shifu.jpg')"
     //};
@@ -446,7 +450,7 @@ let startGame = () => {
     showTextNode(1)
     
     
-    //fight()
+    fight()
     
 }
 

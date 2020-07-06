@@ -54,7 +54,7 @@ const Ramesses = {
     actions: [],
 }
 
-let turn = 1;
+// let turn = 1;
 
 let odds = (max) => {
     let num = Math.floor(Math.random() * (max - 2) + 2);
@@ -153,11 +153,11 @@ const attackR = (x) => {
             Ramesses.health -= (2 + randN(x.str));
             x.aimBonus = 0;
             //document.getElementsByClassName("selectBox").innerText = Ramesses.health;
-            //console.log("Turn Num: " + turn + "  You're hit " + "Ramess health: " + Ramesses.health) 
+        console.log("Turn Num: " + turn + "  You're hit " + "Ramess health: " + Ramesses.health) 
             turn += 1; 
         } else {
             x.aimBonus = 0;
-            //console.log("Turn Num: " + turn + " Dodged!")
+            console.log("Turn Num: " + turn + " Dodged!")
             turn += 1; 
         }
             
@@ -184,11 +184,11 @@ const clubStrike = (x) => { // Normal Player attack
     let swingAway = 1 + randN(Ramesses.combat)
     if (swingAway >= x.athl/2){
         x.health -= (4 + randN(Ramesses.str));
-        //console.log("Turn Num: " + turn + "  Direct Hit! Enemy Health: " + x.health);
+        console.log("Turn Num: " + turn + "  Direct Hit! Enemy Health: " + x.health);
         Ramesses.athl = Ramesses.origathl
         turn ++;
     } else {
-        //console.log("Turn Num: " + turn + "  Missed" )
+        console.log("Turn Num: " + turn + "  Missed" )
         turn ++;
     }
     
@@ -267,15 +267,17 @@ const enemyNames = [
 
 
 // ===================Combat text and user enemy selection =================================
-let state = 0;
+let state = [];
 
 let versus = [];
 
 let monsterGeny = () => {
-    for (let i = 0; i < randN(3); i++) {
+    let y = randN(3)
+    for (let i = 0; i < y; i++) {
         let x = randE()
         versus.push(new Enemy(enemyNames[x].name, enemyNames[x].image))
-}
+    }
+    return versus;
 }
 
 const battleText = document.getElementById("hud");
@@ -404,40 +406,42 @@ let turnTurner = () => {
 
 const bodySweeper = () => {
     if (versus[0].health <= 0){
-        //console.log("Taking out the trash!")
+        console.log("Taking out the trash!")
         versus.shift()
     } 
 } 
 
+let turn = 1;
+
 let fight = () => {
+    // document.getElementById("ooc").style.display="none";
+    // document.getElementById("combat").removeAttribute("style");
+    monsterGeny()
+    // if (versus.length == 1) {
+    //     oneEnemy(1)
+    // } else if (versus.length > 1) {
+    //     twoEnemy(1)      
+    // }
     document.getElementById("ooc").style.display="none";
     document.getElementById("combat").removeAttribute("style");
-    monsterGeny()
-    if (versus.length === 1) {
-        oneEnemy(1)
-    } else if (versus.length > 1) {
-        twoEnemy(1)      
-    }
     while (Ramesses.health > 0 && versus.length > 0){
+        console.log("in the fight loop");
         bodySweeper()
-        if (turn === 1) {
-            if (versus.length === 1) {
-                showText1(1)
-            } else {
-                showText2(1)
-            };          
+        if (turn = 1) {
+            console.log(turn)
         }
         bodySweeper()
-        if (turn === 2 && versus.length > 0) {
+        if (turn == 2 && versus.length > 0) {
             badAi(versus[0])        
          } 
-         if (turn === 3 && versus.length > 1) {
+         if (turn == 3 && versus.length > 1) {
             badAi(versus[1])
          }
          turnTurner()
          
     }
 }
+
 
 // - - - - - - - - - - - - Text for Game - - - - - - - - - - - - - - - 
 
@@ -483,7 +487,6 @@ const textNodes = [
         options: [ 
             {
                 text: "Continue",
-                setState: {Shifu: true},
                 nextText: 2
             }
         ]
@@ -494,6 +497,7 @@ const textNodes = [
         options: [
             {
                 text: "Continue",
+                setState: {shifu: true},
                 nextText: 3
             }
         ]
@@ -513,13 +517,16 @@ const textNodes = [
 
 ///  - - - - - - - - - Beginning of Game- - - - - - - - - - - - -
 let startGame = () => {
-    state = [];
+    state = {shifu: false};
     document.getElementById("combat").style.display="none";
     document.getElementById("ooc").removeAttribute("style");
-    npcs[0].style.backgroundImage = "url('assets/Shifu.jpg')";
+    if (state.shifu == true) {npcs[0].style.backgroundImage = "url('assets/Shifu.jpg')"};
     bGI[0].style.backgroundImage = "url('assets/startBG11.jpg')"
     showTextNode(1)
-    fight();
+    
+    
+    //fight()
+    
 }
 
 

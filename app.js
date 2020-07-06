@@ -508,7 +508,7 @@ const textNodes = [
     },
     {
         id: 3,
-        text: "His dojo master demands Ramses and his remaining oath brother, known as “Anchor of the Unmoored kingdom stay in the orphanage dojo; “Anyone weak enough to be taken deserves their fate” he says. Ignoring their master’s words, the two of them head to the abandoned Harriet Stowe Housing community or what the local’s called “Uncle Tom’s Projects” to face off against the Raptures Wronged gang to get their brother back tonight or die trying.",
+        text: "His dojo master demands Ramses and his remaining oath brother, known as “Anchor of the Unmoored kingdom“ stay in the orphanage dojo; “Anyone weak enough to be taken deserves their fate” he says. Ignoring their master’s words, the two of them head to the abandoned Harriet Stowe Housing community or what the local’s called “Uncle Tom’s Projects” to face off against the Raptures Wronged gang to get their brother back tonight or die trying.",
         sideEffect: () => {
             npcs[0].style.backgroundImage = "url('assets/Shifu.jpg')"
         },

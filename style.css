@@ -48,6 +48,7 @@ body{
     border: solid gainsboro;
     grid-row: 9/11;
     grid-column: 2/15;
+    color: white;
     background-color: blue; opacity: 0.9;
     font-weight: bold;
 }
@@ -195,7 +196,7 @@ body{
 }
 .hud {
     border: solid gainsboro;
-    grid-row: 8/11;
+    grid-row: 9/11;
     grid-column: 2/15;
     background-color: blue; opacity: 0.5;
 }

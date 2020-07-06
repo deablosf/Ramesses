@@ -54,7 +54,7 @@ const Ramesses = {
     actions: [],
 }
 
-let turn = 0;
+let turn = 1;
 
 let odds = (max) => {
     let num = Math.floor(Math.random() * (max - 2) + 2);
@@ -127,22 +127,22 @@ let bGI = document.getElementsByClassName('screen');
 
 let hud = document.getElementsByClassName('hud');
 
-let enemyBox1 = document.getElementsByClassName('ene1');
+let enemyBox1 = document.getElementById('ene1');
 
-let enemyBox2 = document.getElementsByClassName('ene2');
+let enemyBox2 = document.getElementById('ene2');
 
-let enemyBox3 = document.getElementsByClassName('ene3');
+let enemyBox3 = document.getElementById('ene3');
 
 let oneEnemy = () => {
-    enemyBox1[0].style.display="none"
-    enemyBox3[0].style.display="none"
-    enemyBox2[0].removeAttribute("style");
+    enemyBox1.style.display="none";
+    enemyBox3.style.display="none";
+    enemyBox2.removeAttribute("style");
 }
 
 let twoEnemy = () => {
-    enemyBox1[0].removeAttribute("style");
-    enemyBox3[0].removeAttribute("style");
-    enemyBox2[0].style.display="none"
+    enemyBox1.removeAttribute("style");
+    enemyBox3.removeAttribute("style");
+    enemyBox2.style.display="none";
 }
 
 // ======================================PRE-SET ACTIONS=========================================
@@ -153,12 +153,12 @@ const attackR = (x) => {
             Ramesses.health -= (2 + randN(x.str));
             x.aimBonus = 0;
             //document.getElementsByClassName("selectBox").innerText = Ramesses.health;
-            console.log("Turn Num: " + turn + "  You're hit " + "Ramess health: " + Ramesses.health) 
-            turn + 1; 
+            //console.log("Turn Num: " + turn + "  You're hit " + "Ramess health: " + Ramesses.health) 
+            turn += 1; 
         } else {
             x.aimBonus = 0;
-            console.log("Turn Num: " + turn + " Dodged!")
-            turn + 1; 
+            //console.log("Turn Num: " + turn + " Dodged!")
+            turn += 1; 
         }
             
     }
@@ -167,8 +167,8 @@ const attackR = (x) => {
 const aim = (x) => {
     if (turn >= 1) {
         x.aimBonus +=2;
-        console.log("Looks like " + x.name + " is taking aim!  " + x.aimBonus);
-        turn + 1;
+        //console.log("Looks like " + x.name + " is taking aim!  " + x.aimBonus);
+        turn += 1;
     }
 }
 
@@ -184,11 +184,11 @@ const clubStrike = (x) => { // Normal Player attack
     let swingAway = 1 + randN(Ramesses.combat)
     if (swingAway >= x.athl/2){
         x.health -= (4 + randN(Ramesses.str));
-        console.log("Turn Num: " + turn + "  Direct Hit! Enemy Health: " + x.health);
+        //console.log("Turn Num: " + turn + "  Direct Hit! Enemy Health: " + x.health);
         Ramesses.athl = Ramesses.origathl
         turn ++;
     } else {
-        console.log("Turn Num: " + turn + "  Missed" )
+        //console.log("Turn Num: " + turn + "  Missed" )
         turn ++;
     }
     
@@ -198,16 +198,16 @@ const violetThrust = (x) => {  // lowers next attacks damage by 6 but adds athl 
     let swingAway = 1 + randN(Ramesses.combat)
     if (swingAway >= x.athl/2){
         Ramesses.str += 6;
-        console.log("You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!")
+        //console.log("You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!")
         x.health -= (4 + randN(Ramesses.str));
-        console.log("Turn Num: " + turn + "  Struck True! Enemy Health: " + x.health);
+        //console.log("Turn Num: " + turn + "  Struck True! Enemy Health: " + x.health);
         Ramesses.athl -= 5;
         Ramesses.str = Ramesses.origstr;
         turn ++;
     } else {
         Ramesses.athl -= 5;
-        console.log("You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!")
-        console.log("Turn Num: " + turn + " Only to miss ..." )
+        //console.log("You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!")
+        //console.log("Turn Num: " + turn + " Only to miss ..." )
         turn ++;
     }
     
@@ -220,41 +220,51 @@ const ravanaBackHand = (x) => { //multiple attacks 拉瓦那的反手, less chan
     if (swingAway > x.athl/2) {
         for (i = swingAway; i > x.athl/2; i --) {
             x.health -= (4 + randN(Ramesses.str));
-            console.log("Hit!")
+            //console.log("Hit!")
         }
         turn ++;
     
     } else {
-        console.log("Way to swing mighty Casey")
+        //console.log("Way to swing mighty Casey")
         turn ++;
     
 }
 }
 
-let counter = () => {  //Round counter
-    
-}
-
-let eneactions = [attackR(), aim()]
 
 Ramesses.actions = [clubStrike, violetThrust, ravanaBackHand]
 
-const enemyNames = ["Wrath", "Gluttony", "Lust", "Pride", "Avarus", "Envy", "Sloth"]
+const enemyNames = [
+    {
+        name: "Wrath", 
+        image: "assets/Enemy1.jpg"
+    }, 
+    {
+        name: "Gluttony", 
+        image: "assets/enemy2.jpg"
+    }, 
+    {
+        name: "Lust", 
+        image: "assets/enemy3.jpg"
+    }, 
+    {
+        name: "Pride", 
+        image: "assets/enemy4.jpg"
+    }, 
+    {
+        name: "Avarus", 
+        image: "assets/enemy5.jpg"
+    }, 
+    {
+        name: "Envy", 
+        image: "assets/enemy6.jpg"
+    }, 
+    {
+        name: "Sloth", 
+        image: "assets/enemy7.jpg"
+    }
+]
 
-// let ene1 = document.getElementById('ene1')
-// let ene2 = document.getElementById('ene2')
-// let ene3 = document.getElementById('ene3')
-
-// ene1.addEventListener('click', function(){
-//     let x = versus[0];
-//     // 
-// },false)
-// ene2.addEventListener('click', function(){
-//     let x = versus[0];
-// },false)
-// ene3.addEventListener('click', function(){
-//     let x = versus[1];
-// },false)
 
 // ===================Combat text and user enemy selection =================================
 let state = 0;
@@ -263,7 +273,8 @@ let versus = [];
 
 let monsterGeny = () => {
     for (let i = 0; i < randN(3); i++) {
-     versus.push(new Enemy(enemyNames[randE()].name, enemyNames[randE()].image))
+        let x = randE()
+        versus.push(new Enemy(enemyNames[x].name, enemyNames[x].image))
 }
 }
 
@@ -271,7 +282,8 @@ const battleText = document.getElementById("hud");
 const optionButtonsElementB = document.getElementById("selectBox")
 
 let showText1 = (battleTextNodeIndex1) => {
-    const textNodeA = bTextNode1.find(textNodeA => textNodeA.id === battleTextNodeIndex1)
+    const textNodeA = bTextNode1.find(elementOfbTextNode1 => 
+        elementOfbTextNode1.id === battleTextNodeIndex1)
     battleText.innerText = textNodeA.text;
     textNodeA.options.forEach(option => {
         if (showOption(option)) {
@@ -328,15 +340,15 @@ let choice = (option) => {
             options: [
                 {
                     text: "Quick Strike", 
-                    nextText: clubStrike(state)
+                    nextText: clubStrike
                 }, 
                 {
                     text: "Violet Thrust", 
-                    nextText: violetThrust(state)
+                    nextText: violetThrust
                 }, 
                 {
                     text: "Ravana’s Backhands", 
-                    nextText: ravanaBackHand(state)
+                    nextText: ravanaBackHand
                 }
             ]
         }
@@ -366,15 +378,15 @@ let choice = (option) => {
             options: [
                 {
                     text: "Quick Strike",
-                    nextText: clubStrike(state)
+                    nextText: clubStrike
                 },
                 {
                     text: "Violet Thrust",
-                    nextText: violetThrust(state)
+                    nextText: violetThrust
                 },
                 {
                     text: "Ravana’s Backhands",
-                    nextText: ravanaBackHand(state)
+                    nextText: ravanaBackHand
                 }
             ]
         }
@@ -386,15 +398,13 @@ let versusLength = versus.length +1;
 
 let turnTurner = () => {
     if (turn >= versusLength) {
-        turn = 0
+        turn = 1
     }
-    //document.querySelector(".slideshow").src = images[counter]
-    //console.log(images[counter])
 }
 
 const bodySweeper = () => {
     if (versus[0].health <= 0){
-        console.log("Taking out the trash!")
+        //console.log("Taking out the trash!")
         versus.shift()
     } 
 } 
@@ -403,25 +413,25 @@ let fight = () => {
     document.getElementById("ooc").style.display="none";
     document.getElementById("combat").removeAttribute("style");
     monsterGeny()
-    if (versus.length = 1) {
-        oneEnemy()
+    if (versus.length === 1) {
+        oneEnemy(1)
     } else if (versus.length > 1) {
-        twoEnemy()      
+        twoEnemy(1)      
     }
     while (Ramesses.health > 0 && versus.length > 0){
         bodySweeper()
-        if (turn = 1) {
-            if (versus.length = 1) {
-                showText1()
+        if (turn === 1) {
+            if (versus.length === 1) {
+                showText1(1)
             } else {
-                showText2()
+                showText2(1)
             };          
         }
         bodySweeper()
-        if (turn = 2 && versus.length > 0) {
+        if (turn === 2 && versus.length > 0) {
             badAi(versus[0])        
          } 
-         if (turn = 3 && versus.length > 1) {
+         if (turn === 3 && versus.length > 1) {
             badAi(versus[1])
          }
          turnTurner()
@@ -503,15 +513,13 @@ const textNodes = [
 
 ///  - - - - - - - - - Beginning of Game- - - - - - - - - - - - -
 let startGame = () => {
-    state = 0;
+    state = [];
     document.getElementById("combat").style.display="none";
     document.getElementById("ooc").removeAttribute("style");
     npcs[0].style.backgroundImage = "url('assets/Shifu.jpg')";
     bGI[0].style.backgroundImage = "url('assets/startBG11.jpg')"
-   //fight()
-   
     showTextNode(1)
-
+    fight();
 }
 
 

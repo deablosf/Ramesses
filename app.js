@@ -114,10 +114,6 @@ let applyChange = () => {
     $('.total').html(Ramesses.health + "/" + Ramesses.orighealth);
   }
 
-  let gameMessage = document.getElementById('hud');
-
-  let enemyImage = document.getElementById('ene2')
-
   class Enemy {
     constructor(name, image, snaps){
         this.name = name,
@@ -140,13 +136,19 @@ let applyChange = () => {
 
 
 // ==================================
-// Background, enemy iamge variables and HUD 
+// Background, enemy image, document variables and HUD 
 // ==================================
 
 // NPC the Player is interacting with at that Moment
 let npcs = document.getElementsByClassName('person');
 // Current background image
 let bGI = document.getElementsByClassName('screen');
+// In combat messages 
+let gameMessage = document.getElementById('hud');
+
+let enemyImage = document.getElementById('ene2')
+
+
 // Multiple enemies boxs to target, failed
 let enemyBox1 = document.getElementById('ene1');
 
@@ -350,17 +352,17 @@ const endFight = (message) => {
 }
 
 // going to be the game over screen
-const restart = () => {
-    let attackButton = document.getElementsByClassName('attack-btn');
-    Ramesses.health = Ramesses.orighealth;
-    document.getElementById('hud').innerText = "";
-    attackButton.disabled = false;
-    attackButton.hidden = false;
-    document.getElementById("continue-button").hidden = true;
-}
+// const restart = () => {
+//     let attackButton = document.getElementsByClassName('attack-btn');
+//     Ramesses.health = Ramesses.orighealth;
+//     document.getElementById('hud').innerText = "";
+//     attackButton.disabled = false;
+//     attackButton.hidden = false;
+//     document.getElementById("continue-button").hidden = true;
+// }
 
 // ======================== 
-// ============== Text for Game
+// ============== Text and navigator for Game
 // ========================
 
 const textElement = document.getElementById('text');

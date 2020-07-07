@@ -227,7 +227,6 @@ const ravanaBackHand = (x) => { //multiple attacks 拉瓦那的反手, less chan
         for (i = swingAway; i > x.athl/2; i --) {
             gameMessage.innerText = "Hit!" + i;
             x.health -= (1 + randN(Ramesses.str));
-            
         }
     
     } else {
@@ -308,7 +307,7 @@ let fight = () => {
     gameMessage.innerText = versus[0].snaps[randN0(4)];
          
     }
-
+// Players attack and computer's reaction
 const attack = (x) => {
     let attackButton = document.getElementsByClassName('attack-btn')
     let continueButton = document.getElementById("continue-button"); 
@@ -344,7 +343,7 @@ const endFight = (message) => {
         grandMaster()
         document.getElementById("ooc").removeAttribute("style")
         document.getElementById("combat").style.display="none";
-        showTextNode(nextTextNodeId +=1)
+        showTextNode(nextTextNodeId++)
         
     }, 7000);
     document.getElementsByClassName('attack-btn').hidden = true;
@@ -498,6 +497,10 @@ const textNodes = [
     {
         id: 8,
         text: "A winding staircase of faux marble is covered with a layer of dust with footprints marking the passing of people and of the five apartments on this first floor only three of them have doors.",
+        sideEffect: () => {
+            bGI[0].style.backgroundImage = "url('assets/BG5.jpg')";
+            npcs[0].style.backgroundImage = "none";
+        },
         options:[
             {
                 text: "Door One",
@@ -509,7 +512,7 @@ const textNodes = [
             },
             {
                 text: "Door Three",
-                nextText: 11
+                nextText: 14
             }
         ]
     },
@@ -518,16 +521,19 @@ const textNodes = [
         text: "Ramesses~What kind of jive ass, silly, sad sack, narrow assed attempt at security is this?~ you think as you press the door open with your bat. Inside the bombed out room a woman sits on stacks of magazine, she looks up startled when you enter. Ruby~ Who are you?!",
         sideEffect: () => { // add first person 
             bGI[0].style.backgroundImage = "url('assets/floor1R1.jpg')"
-            npcs[0].style.backgroundImage = "url('assets/Ruby.jpg')"
+            
+            setTimeout(() => {
+                npcs[0].style.backgroundImage = "url('assets/Ruby.jpg')"
+            }, 2000);
         },
         options: [
             {
                 text: "I'm a new member", // I know all the members because I give them their tats
-                nextText: 10
+                nextText: 12
             },
             {
                 text: "I am Ramesses.", // You say it like it means something.
-                nextText: 12
+                nextText: 13
             },
             {
                 text: "close door and walk away",
@@ -538,28 +544,41 @@ const textNodes = [
     },
     {
         id: 10,
-        text: "",
+        text: "The sounds of vermin attempting to get away from you as you force open the door alerts you to the fact that you’re not alone here. The vermin whips around with weapon in hand. That punk Eclipse said somebody would be dumb enough to try and save him. ",
+        sideEffect: () => {
+            bGI[0].style.backgroundImage = "url('assets/room2.jpg')"
+        },
         options: [
             {
-
+                text: "Fight!",
+                nextText: 11
             }
         ]
     },
     {
         id: 11,
-        text: "",
+        text: "Now you know you're in the right place. Don't know if Eclipse's fat mouth is still shooting off. But they're all gonna pay for their Transgressions. ",
+        sideEffect: () => {
+            fight()
+        },
         options: [
             {
-
+                text: "Search the room and the knocked out sucka",
+                nextText: 12
+            },
+            {
+                text: "Go back to the Hallway",
+                nextText: 8
             }
         ]
     },
     {
         id: 12,
-        text: "",
+        text: "Nothing of use in this wreckage but the punk on the floor had a pocket full of candy.",
         options: [
             {
-
+                text: "Back to hallway",
+                nextText: 8
             }
         ]
     },
@@ -574,7 +593,7 @@ const textNodes = [
     },
     {
         id: 14,
-        text: "",
+        text: "Boos Fight",
         options: [
             {
 

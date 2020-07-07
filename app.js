@@ -131,6 +131,23 @@ let applyChange = () => {
     }
 }
 
+class BossEnemy {
+    constructor(name, image, snaps){
+        this.name = name,
+        this.str = odds(9), //between 2 and 8
+        this.athl = odds(9),  //between 2 and 6
+        this.refdet = odds(7),  //between 0 and 4
+        this.combat = odds(11),  //between 2 and 6
+        this.tough = odds(9),  //between 2 and 8
+        this.toler = odds(9),  //between 2 and 8
+        this.health = eneHealth(35), // between 8 and 24
+        this.aimBonus = 0,
+        this.actions = [attackR, aim],
+        this.image = image,
+        this.snaps = snaps
+    }
+}
+
     let seeFoo = ["Are you getting paid to be a punching bag or do you just like getting hit? Not judging if that’s what you’re into. Just thought you wanted to save someone.", "Was that your best hit? I thought you were trying to hurt them, not seduce them with light tickles and love taps.", "Any fight that they walk away from is another failure in your book. Worst student I ever had.", "I thought I taught you to win a fight you need to get hit less than the other guy, unless you’re trying to wear down his fists with your face.", "Is this for intimidation? Stand there and let them beat you until they are tired because it is futile?", " wouldn’t have done that but what do I know, I just taught you how to fight.", "Your body is strong and your brain is equally as weak. That means you’re stupid, BWAH HA HA HA.", "You know why they call it dead weight? If you try to lift it, you die too. Leave him. If he was weak enough to get caught, he is too weak for what’s coming."];
 
 
@@ -406,7 +423,7 @@ let selectOption = (option) => {
 const textNodes = [
     {
         id: 1,
-        text: "The Bronx was no peaceful farm town but it was home. Ramses and his brothers from the orphanage-dojo enjoyed their lives together until the Di Trullio crime family let greed make their choices for them. New faces roamed the streets, criminals from all over visiting and accepting the Di Trullio family’s hospitality.",
+        text: "The Bronx was no peaceful farm town but it was home. Ramesses the Bold and his brothers from the orphanage-dojo enjoyed their lives together until the Di Trullio crime family let greed make their choices for them. New faces roamed the streets, criminals from all over visiting and accepting the Di Trullio hospitality.",
         options: [ 
             {
                 text: "Continue",
@@ -416,7 +433,7 @@ const textNodes = [
     },
     {
         id: 2,
-        text: "These outsiders didn’t know the Bronx, didn’t care for the people and took what they wanted and all was forgiven if they paid off the Di Trullio’s and the mob paid the law. The streets are reaching a boiling point and few people feel safe anymore when a gang from upstate goes too far, taking one of Ramses’ oath brothers after he told them off.",
+        text: "These outsiders didn’t know the Bronx, didn’t care for the people and took what they wanted and all was forgiven; if they paid off the Di Trullio’s. The streets are reaching a braking point and now the straw. A gang from upstate has provoked the wrong punk. They have taken one of Ramesses’ oath brothers, Eclipse. Eclipse has a sharp tongue and not enough sense to sheath it.",
         options: [
             {
                 text: "Continue",
@@ -427,10 +444,10 @@ const textNodes = [
     },
     {
         id: 3,
-        text: "His dojo master demands Ramses and his remaining oath brother, known as “Anchor of the Unmoored kingdom“ stay in the orphanage dojo; “Anyone weak enough to be taken deserves their fate” he says.",
+        text: "Their dojo master commands Ramesses and his remaining oath brother, “Anchor of the Unmoored kingdom“ to stay in the orphanage dojo; “Anyone weak enough to be taken deserves their fate” he says.",
         sideEffect: () => {
             npcs[0].style.backgroundImage = "url('assets/Shifu.jpg')"
-            npcs[0].style.opacity = "0.8";
+            npcs[0].style.opacity = "0.6";
         },
         options: [
             {

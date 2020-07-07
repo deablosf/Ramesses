@@ -513,14 +513,69 @@ const textNodes = [
     },
     {
         id: 9,
-        text: "Ramesses~What kind of jive ass, silly, sad sack, narrow assed attempt at security is this?~ you think as you press the door open with your bat. Inside the bombed out room a woman sits on stacks of magazine. ",
+        text: "Ramesses~What kind of jive ass, silly, sad sack, narrow assed attempt at security is this?~ you think as you press the door open with your bat. Inside the bombed out room a woman sits on stacks of magazine, she looks up startled when you enter. Ruby~ Who are you?!",
         sideEffect: () => { // add first person 
-
+            bGI[0].style.backgroundImage = "url('assets/floor1R1.jpg')"
+            npcs[0].style.backgroundImage = "url('assets/Ruby.jpg')"
         },
         options: [
             {
-                text: "Continue",
+                text: "I'm a new member", // I know all the members because I give them their tats
                 nextText: 10
+            },
+            {
+                text: "I am Ramesses.", // You say it like it means something.
+                nextText: 12
+            },
+            {
+                text: "close door and walk away",
+                nextText: 8
+
+            }
+        ]
+    },
+    {
+        id: 10,
+        text: "",
+        options: [
+            {
+
+            }
+        ]
+    },
+    {
+        id: 11,
+        text: "",
+        options: [
+            {
+
+            }
+        ]
+    },
+    {
+        id: 12,
+        text: "",
+        options: [
+            {
+
+            }
+        ]
+    },
+    {
+        id: 13,
+        text: "",
+        options: [
+            {
+
+            }
+        ]
+    },
+    {
+        id: 14,
+        text: "",
+        options: [
+            {
+
             }
         ]
     }

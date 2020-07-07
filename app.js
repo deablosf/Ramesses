@@ -487,7 +487,7 @@ const textNodes = [
     },
     {
         id: 6,
-        text: "Anchor- 'Go, get Eclipsing Moon. I’ll keep your back free and clear'. The Rapture's Wronged- 'Get away from tha-'. You watch as Unmoored Anchor leaps onto the mass of thugs. With steel nerves, you open the building security door and walk away from the sounds of fists and screams. You cannot let doubt slow you down now. Trusting in the oath you three swore at your Master Teacher See Foo's Dojo, you enter the lair of the Rapture's Wronged.",
+        text: "Anchor- 'Go, get Eclipsing Moon. I’ll keep your back free and clear'. The Rapture's Wronged- 'Get away from tha do-'. Unmoored Anchor leaps onto the mass of thugs. With steel nerves, you open the building security door and walk away from the sounds of fists and screams. You cannot let doubt slow you down now. Trusting in the oath you three swore at your Master Teacher See Foo's Dojo, you enter the lair of the Rapture's Wronged.",
         sideEffect: () => {
             fight()
             
@@ -501,7 +501,7 @@ const textNodes = [
     },
     {
         id: 7,
-        text: "Stretching out before you is the broken down lobby of the project building. A wall of what was once mailboxes to your right and a graffiti covered wall to your left. In front of you, the remains of a second security door that is folded in on itself like cardboard. Past the front door there is a wider space, an elevator; bombed with graffiti from squatters from days gone by is before you.",
+        text: "Stretched out before you is the broken down lobby of the project building. A wall of what was once mailboxes to your right and a graffiti covered wall to your left. In front of you, a second security door that is folded in on itself like cardboard. Past the door is a wider space, an elevator bay; bombed with graffiti from squatters long gone.",
         sideEffect: () => { // place the elevator backgroound
             bGI[0].style.backgroundImage = "url('assets/BGe.png')"
         },

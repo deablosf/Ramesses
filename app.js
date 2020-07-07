@@ -433,7 +433,7 @@ const textNodes = [
     },
     {
         id: 2,
-        text: "These outsiders didn’t know the Bronx, didn’t care for the people and took what they wanted and all was forgiven; if they paid off the Di Trullio’s. The streets are reaching a braking point and now the straw. A gang from upstate has provoked the wrong punk. They have taken one of Ramesses’ oath brothers, Eclipse. Eclipse has a sharp tongue and not enough sense to sheath it.",
+        text: "These outsiders didn’t know the Bronx, didn’t care for the people and took what they wanted and all was forgiven; if they paid off the Di Trullio’s. The streets are reaching a braking point and now the straw. A gang of jive turkeys from upstate have provoked the wrong Mofo. They have taken one of Ramesses’ oath brothers, Eclipse. Eclipse has a sharp tongue and not enough sense to sheath it so it's easy to figure why they snatched him.",
         options: [
             {
                 text: "Continue",
@@ -458,7 +458,7 @@ const textNodes = [
     },
     {
         id: 4,
-        text: "Ignoring their master’s words, the two of them head to the abandoned Harriet Stowe Housing community or what the local’s called “Tom’s Projects” to face off against the Raptures Wronged gang to get their brother back tonight or die trying. Ramesses ~I told you that you didn’t have to come, see foo’s gonna come down on me for this.~",
+        text: "Ignoring their master’s words, the two of them head to the abandoned Harriet Stowe Housing community or what the local’s called “Tom’s Projects”. They will face off against the Raptures Wronged to get their brother back or die trying. Ramesses- 'I told you that you didn’t have to come, see foo’s gonna come down on me for this'.",
         sideEffect: () => {
             npcs[0].style.backgroundImage = "none"
             bGI[0].style.backgroundImage = "url('assets/mainbuilding.png')";
@@ -472,10 +472,11 @@ const textNodes = [
     },
     {
         id: 5,
-        text: "Oath Bother ~You knew I wasn’t going to listen to your punk ass.~ The two oath brothers stand at the heavy metal magnetically locked door of the project building. As they prepare to enter the building, the sound of vehicles pulling up draws their attention. Members of the Raptures Wronged slowly stepped out of the cars and off motorcycles. As the two prepare to face them, a buzzing comes from the door.",
+        text: "Anchor- 'You knew I wasn’t going to listen to your punk ass'. The two oath brothers stand at the heavy metal magnetically locked door of the project building. As they prepare to enter the building, the sound of vehicles pulling up draws their attention. Members of the Raptures Wronged slowly stepped out of the cars and off motorcycles. As the two prepare to face them, a buzzing comes from the door.",
         sideEffect: () => {
-
-            fight()
+            bGI[0].style.backgroundImage = "url('assets/greydoor.png')"
+            bGI[0].style.backgroundColor = "brown"
+            
         },
         options: [
             {
@@ -486,10 +487,10 @@ const textNodes = [
     },
     {
         id: 6,
-        text: "Oath Brother ~Go, get Eclipsing Moon. I’ll keep your back free and clear.~ The Raptures Wronged ~Get away from th-~. You watch as Unmoored Anchor leaps onto the massed numbers and with steel nerves, you open the building security door and walk away from the sounds of fists and screams. You cannot let doubt slow you down now. Trusting in the oath you three swore at your ex-girl, Brenda's house, you enter the lair of the Raptures Wronged.",
+        text: "Anchor- 'Go, get Eclipsing Moon. I’ll keep your back free and clear'. The Rapture's Wronged- 'Get away from tha-'. You watch as Unmoored Anchor leaps onto the mass of thugs. With steel nerves, you open the building security door and walk away from the sounds of fists and screams. You cannot let doubt slow you down now. Trusting in the oath you three swore at your Master Teacher See Foo's Dojo, you enter the lair of the Rapture's Wronged.",
         sideEffect: () => {
-            bGI[0].style.backgroundImage = "url('assets/greydoor.png')"
-            bGI[0].style.backgroundColor = "brown"
+            fight()
+            
         },
         options: [
             {

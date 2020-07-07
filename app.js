@@ -429,7 +429,7 @@ const textNodes = [
         text: "His dojo master demands Ramses and his remaining oath brother, known as “Anchor of the Unmoored kingdom“ stay in the orphanage dojo; “Anyone weak enough to be taken deserves their fate” he says.",
         sideEffect: () => {
             npcs[0].style.backgroundImage = "url('assets/Shifu.jpg')"
-            npcs[0].style.opacity = "0.6";
+            npcs[0].style.opacity = "0.8";
         },
         options: [
             {
@@ -469,6 +469,10 @@ const textNodes = [
     {
         id: 6,
         text: "Oath Brother ~Go, get Eclipsing Moon. I’ll keep your back free and clear.~ The Raptures Wronged ~Get away from th-~. You watch as Unmoored Anchor leaps onto the massed numbers and with steel nerves, you open the building security door and walk away from the sounds of fists and screams. You cannot let doubt slow you down now. Trusting in the oath you three swore at your ex-girl, Brenda's house, you enter the lair of the Raptures Wronged.",
+        sideEffect: () => {
+            bGI[0].style.backgroundImage = "url('assets/greydoor.png')"
+            bGI[0].style.backgroundColor = "orange"
+        },
         options: [
             {
                 text: "Continue",
@@ -478,7 +482,10 @@ const textNodes = [
     },
     {
         id: 7,
-        text: "",
+        text: "Stretching out before you is the broken down lobby of the project building. A wall of what was once mailboxes to your right and a graffiti covered wall to your left. In front of you, the remains of a second security door that is folded in on itself like cardboard. Past the front door there is a wider space, an elevator; bombed with graffiti from squatters from days gone by is before you.",
+        sideEffect: () => { // place the elevator backgroound
+
+        },
         options: [
             {
                 text: "Continue",
@@ -488,17 +495,25 @@ const textNodes = [
     },
     {
         id: 8,
-        text: "",
+        text: "A winding staircase of faux marble is covered with a layer of dust with footprints marking the passing of people and of the five apartments on this first floor only three of them have doors.",
         options:[
             {
-                text: "continue",
+                text: "Door One",
                 nextText: 9
+            },
+            {
+                text: "Door Two",
+                nextText: 10
+            },
+            {
+                text: "Door Three",
+                nextText: 11
             }
         ]
     },
     {
         id: 9,
-        text: "",
+        text: "Ramesses~What kind of jive ass, silly, sad sack, narrow assed attempt at security is this?~ you think as you press the door open with your bat.",
         options: [
             {
                 text: "Continue",

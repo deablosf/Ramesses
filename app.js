@@ -291,6 +291,13 @@ const enemyNames = [
     }
 ]
 
+const bossNames = [
+    {
+        name: "RoadKill",
+        image: "url('assets/Boss1.png')",
+        snaps: ["So you're guy Ruby was screaming about; the friend of that disrespectful asshole and the guy that burned down Grustigies Arcade. "]
+    }
+]
 
 // ============================
 // Combat text and user enemy selection
@@ -303,6 +310,14 @@ let monsterGeny = () => {
     for (let i = 0; i < y; i++) {
         let x = randE()
         versus.push(new Enemy(enemyNames[x].name, enemyNames[x].image, enemyNames[x].snaps))
+    }
+    return versus;
+}
+
+let bossGeny = () => {
+    let y = 1
+    for (let i = 0; i < y; i++) {
+        versus.push(new Enemy(bossNames[0].name, bossNames[0].image, bossNames[0].snaps))
     }
     return versus;
 }
@@ -324,6 +339,19 @@ let fight = () => {
     gameMessage.innerText = versus[0].snaps[randN0(4)];
          
     }
+
+    let bossFight = () => {
+        flrOneBoss()
+        document.getElementById("ooc").style.display="none";
+        document.getElementById("combat").removeAttribute("style");
+        document.getElementById("ene2").removeAttribute("style");
+        bossGeny()
+        enemyImage.style.backgroundImage = versus[0].image;
+        gameMessage.innerText = versus[0].snaps[0];
+             
+        }
+
+
 // Players attack and computer's reaction
 const attack = (x) => {
     let attackButton = document.getElementsByClassName('attack-btn')
@@ -360,6 +388,7 @@ const endFight = (message) => {
         grandMaster()
         document.getElementById("ooc").removeAttribute("style")
         document.getElementById("combat").style.display="none";
+        versus.shift()
         showTextNode(nextTextNodeId++)
         
     }, 7000);
@@ -530,7 +559,7 @@ const textNodes = [
             },
             {
                 text: "Door Three",
-                nextText: 14
+                nextText: 15
             }
         ]
     },
@@ -547,7 +576,7 @@ const textNodes = [
         options: [
             {
                 text: "I'm a new member", // I know all the members because I give them their tats
-                nextText: 12
+                nextText: 13
             },
             {
                 text: "I am Ramesses.", // You say it like it means something.
@@ -602,19 +631,52 @@ const textNodes = [
     },
     {
         id: 13,
-        text: "",
+        text: "Wait a minute, I know who you are! Your the asshole that burned down Grustigies Arcade! HE'S IN HERE! ",
         options: [
             {
-
+                text: "Fight",
+                nextText: 14
             }
         ]
     },
     {
         id: 14,
-        text: "Boos Fight",
+        text: "Ruby ran out while you fighting. Don't worry, the arcade wasn't entirely your fault.",
+        sideEffect: () => {
+            fight()
+        },
         options: [
             {
-
+                text: "Back tothe hallway",
+                nextText: 8
+            }
+        ]
+    },
+    {
+        id: 15,
+        text: "After beating the brakes off that handy capable sucka you find the keys to the stairwell. Perfect place, no one would ever think he'd be the one with the keys. One floor down not sure how many to go. But you're damn sure they know you're coming and they better be ready. Cause when Ramesses comes, he comes hard.",
+        sideEffect: () => {
+            bGI[0].style.backgroundImage = "url('assets/bossstage.jpg')"
+            bossFight()
+        },
+        options: [
+            {
+                text: "continue",
+                nextText: 16
+            }
+        ]
+    },
+    {
+        id: 16,
+        text: "",
+        sideEffect: () => {
+            bGI[0].style.backgroundImage = "url('assets/continued.png')";
+            endsong()
+        },
+        options: [
+            {
+                text: "The end ... For now",
+                nextText: 17
             }
         ]
     }
@@ -623,13 +685,29 @@ const textNodes = [
 
 let music = document.getElementById("flash");
 let battleMusic = document.getElementById("lines")
+let flOneBoss = document.getElementById("Rasputin")
+let roundabout = document.getElementById("coninued")
 let grandMaster = () => {
     battleMusic.pause()
     music.play()
+    flOneBoss.pause()
 }
 let fightclub = () => {
     music.pause()
     battleMusic.play()
+}
+let flrOneBoss = () => {
+    flOneBoss.play()
+    battleMusic.pause()
+    music.pause()
+}
+let endsong = () => {
+    music.pause()
+    battleMusic.pause()
+    music.pause()
+    roundabout.play()
+    
+
 }
 
 /// ==========================

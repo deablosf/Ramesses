@@ -163,15 +163,28 @@ let bGI = document.getElementsByClassName('screen');
 // In combat messages 
 let gameMessage = document.getElementById('hud');
 
-let enemyImage = document.getElementById('ene2')
+let enemyImage = document.getElementById('ene2');
+
+let damageAni = () => {
+    enemyImage.style.border = "solid red";
+    setTimeout(() => {
+            enemyImage.style.border = "none";
+            }, 125);
+    setTimeout(() => {
+            enemyImage.style.border = "solid red";
+            }, 250);
+    setTimeout(() => {
+            enemyImage.style.border = "none";
+            }, 375);
+    }
 
 
 // Multiple enemies boxs to target, failed
-let enemyBox1 = document.getElementById('ene1');
+// let enemyBox1 = document.getElementById('ene1');
 
-let enemyBox2 = document.getElementById('ene2');
+// let enemyBox2 = document.getElementById('ene2');
 
-let enemyBox3 = document.getElementById('ene3');
+// let enemyBox3 = document.getElementById('ene3');
 
 // ==========================================
 // ========PRE-SET Attack for player and Npcs=====
@@ -204,6 +217,7 @@ const clubStrike = (x) => { // Normal Player attack
     let swingAway = 1 + randN(Ramesses.combat)
     if (swingAway >= x.athl/2){
         x.health -= (4 + randN(Ramesses.str));
+        damageAni()
         gameMessage.innerText = "Direct Hit! Enemy Health: " + x.health;
         Ramesses.athl = Ramesses.origathl
     } else {
@@ -219,8 +233,9 @@ const violentThrust = (x) => {  // lowers next attacks damage by 6 but adds athl
         gameMessage.innerText = "You get low, low-rider, turning your legs into high tention spring and let loose, launchin' yourself parallel to the floor right at that sucka!";
         setTimeout(() => {
             x.health -= (4 + randN(Ramesses.str));
+            gameMessage.innerText = "Struck True! Enemy Health: " + x.health;
+            damageAni()
         }, 1000);
-        gameMessage.innerText = "Struck True! Enemy Health: " + x.health;
         setTimeout(() => {  
         Ramesses.athl -= 5;
         Ramesses.str = Ramesses.origstr;
@@ -242,6 +257,7 @@ const ravanaBackHand = (x) => { //multiple attacks 拉瓦那的反手, less chan
     let swingAway = 1 + randN(Ramesses.combat)
     if (swingAway > x.athl/2) {
         for (i = swingAway; i > x.athl/2; i --) {
+            damageAni()
             gameMessage.innerText = "Hit!" + i;
             x.health -= (1 + randN(Ramesses.str));
         }
@@ -473,7 +489,7 @@ const textNodes = [
     },
     {
         id: 3,
-        text: "Their dojo master commands Ramesses and his remaining oath brother, “Anchor of the Unmoored kingdom“ to stay in the orphanage dojo; “Anyone weak enough to be taken deserves their fate” he says.",
+        text: "Their dojo Master Teacher See Foo commands Ramesses and his remaining oath brother, “Anchor of the Unmoored kingdom“ to stay in the orphanage dojo; “Anyone weak enough to be taken deserves their fate” he says.",
         sideEffect: () => {
             npcs[0].style.backgroundImage = "url('assets/Shifu.jpg')"
             npcs[0].style.opacity = "0.6";
@@ -568,6 +584,7 @@ const textNodes = [
         text: "Ramesses~What kind of jive ass, silly, sad sack, narrow assed attempt at security is this?~ you think as you press the door open with your bat. Inside the bombed out room a woman sits on stacks of magazine, she looks up startled when you enter. Ruby~ Who are you?!",
         sideEffect: () => { // add first person 
             bGI[0].style.backgroundImage = "url('assets/floor1R1.jpg')"
+            npcs[0].style.opacity = "1.0";
             
             setTimeout(() => {
                 npcs[0].style.backgroundImage = "url('assets/Ruby.jpg')"

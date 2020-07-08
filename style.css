@@ -22,6 +22,16 @@ body{
     box-shadow: 0 0 10px 2px;
 }
 
+.btn {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    color: black;
+}
+
+.btn:hover{
+    border: solid gold;
+}
+
 /*-------- OOC screen and objects ---------*/
 .screen {
     border: solid;
@@ -92,13 +102,13 @@ body{
 
 }
 
-.btn {
-    font-family: Grooovy;
+.attack-btn {
+    font-family: 'Times New Roman', Times, serif;
     font-size: 20px;
     color: black;
 }
 
-.btn:hover{
+.attack-btn:hover{
     border: solid gold;
 }
 
@@ -185,7 +195,6 @@ body{
     grid-column: 3/4;
 }
 #ene2 {
-    border: solid gainsboro;
     height: 50vh;
     width: 25vw;
     background-size: 100% 100%;

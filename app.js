@@ -166,6 +166,7 @@ let gameMessage = document.getElementById('hud');
 let enemyImage = document.getElementById('ene2');
 
 let damageAni = () => {
+    hitSFX()
     enemyImage.style.border = "solid red";
     setTimeout(() => {
             enemyImage.style.border = "none";
@@ -478,7 +479,7 @@ const textNodes = [
     },
     {
         id: 2,
-        text: "These outsiders didn’t know the Bronx, didn’t care for the people and took what they wanted and all was forgiven; if they paid off the Di Trullio’s. The streets are reaching a braking point and now the straw. A gang of jive turkeys from upstate have provoked the wrong Mofo. They have taken one of Ramesses’ oath brothers, Eclipse. Eclipse has a sharp tongue and not enough sense to sheath it so it's easy to figure why they snatched him.",
+        text: "These outsiders didn’t know the Bronx, didn’t care for the people, took what they wanted and all was forgiven; if they paid off the Di Trullio’s. The streets are reaching a braking point and now enters the straw. A gang of jive turkeys from upstate have provoked the wrong Mofo. They have taken one of Ramesses’ oath brothers, Eclipse. Eclipse has a sharp tongue and not enough sense to sheath it, so it's easy to figure out why they snatched him.",
         options: [
             {
                 text: "Continue",
@@ -503,7 +504,7 @@ const textNodes = [
     },
     {
         id: 4,
-        text: "Ignoring their master’s words, the two of them head to the abandoned Harriet Stowe Housing community or what the local’s called “Tom’s Projects”. They will face off against the Raptures Wronged to get their brother back or die trying. Ramesses- 'I told you that you didn’t have to come, see foo’s gonna come down on me for this'.",
+        text: "Ignoring their master’s words, the two of them head to the abandoned Harriet Stowe Housing community or what the local’s called “Tomny’s Projects”. They will face off against the Raptures Wronged to get their brother back or die trying. Ramesses- 'I told you that you didn’t have to come, see foo’s gonna come down on me for this'.",
         sideEffect: () => {
             npcs[0].style.backgroundImage = "none"
             bGI[0].style.backgroundImage = "url('assets/mainbuilding.png')";
@@ -704,6 +705,7 @@ let music = document.getElementById("flash");
 let battleMusic = document.getElementById("lines")
 let flOneBoss = document.getElementById("Rasputin")
 let roundabout = document.getElementById("coninued")
+let bonk  = document.getElementById("bonk")
 let grandMaster = () => {
     battleMusic.pause()
     music.play()
@@ -725,6 +727,9 @@ let endsong = () => {
     roundabout.play()
     
 
+}
+let hitSFX = () => {
+    bonk.play()
 }
 
 /// ==========================

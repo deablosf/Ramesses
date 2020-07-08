@@ -177,7 +177,7 @@ let damageAni = () => {
     setTimeout(() => {
             enemyImage.style.border = "none";
             }, 375);
-    }
+        }
 
 
 // Multiple enemies boxs to target, failed
